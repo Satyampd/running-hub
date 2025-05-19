@@ -43,6 +43,6 @@ build/
 *.swp
 *.bak
 backend/.env
-*.json
+*_events.json
 
 

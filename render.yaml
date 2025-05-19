@@ -10,7 +10,8 @@ services:
         fromService:
           name: running-events-hub-api
           type: web
-          property: url
+          property: hostport
+        prefix: https://
         postfix: /api
 
   # Backend API service
@@ -19,7 +20,7 @@ services:
     env: python
     region: ohio
     buildCommand: cd backend && pip install -r requirements.txt
-    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: cd backend && ./render_start.sh
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
@@ -27,9 +28,11 @@ services:
         fromDatabase:
           name: running-events-db
           property: connectionString
+      - key: ALLOW_ALL_ORIGINS
+        value: "true"
 
 # Database
 databases:
   - name: running-events-db
     plan: free
-    region: ohio 
+    region: ohio

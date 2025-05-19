@@ -5,19 +5,7 @@ import { useTheme } from '../contexts/ThemeContext'
 import { formatDate, compareDates } from '../utils/dateUtils'
 import '../styles/custom.css'
 
-// Icons
-const MoonIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-  </svg>
-)
-
-const SunIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-  </svg>
-)
-
+// Remove unused icons
 const RUNNING_QUOTES = [
   {
     quote: "The miracle isn't that I finished. The miracle is that I had the courage to start.",
@@ -97,9 +85,9 @@ export default function HomePage() {
               Words to Run By
             </h2>
             <div className="grid md:grid-cols-3 gap-8">
-              {RUNNING_QUOTES.map((item, index) => (
+              {RUNNING_QUOTES.map((item) => (
                 <div
-                  key={index}
+                  key={item.quote}
                   className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg rounded-3xl p-8 shadow-lg hover-card-animation hover-shine hover-run-animation hover-border-pulse"
                 >
                   <blockquote className="text-xl font-display text-gray-800 dark:text-gray-100 italic mb-6">
@@ -121,7 +109,7 @@ export default function HomePage() {
             
             {upcomingEvents.length > 0 ? (
               <div className="grid md:grid-cols-3 gap-8">
-                {upcomingEvents.map((event, index) => (
+                {upcomingEvents.map((event) => (
                   <div
                     key={event.id}
                     className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg rounded-3xl overflow-hidden shadow-lg hover-card-animation hover-gradient-border hover-shine hover-run-animation hover-border-pulse"

@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=cal-sans@400,500,600,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply font-body antialiased scroll-smooth overflow-x-hidden;
+  }
+
+  html.dark {
+    @apply bg-gray-900;
+  }
+
+  body {
+    @apply min-h-screen bg-gray-50 dark:bg-gray-900;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold text-gray-900 dark:text-white tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  p {
+    @apply text-gray-600 dark:text-gray-300 leading-relaxed;
+  }
+
+  a {
+    @apply text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-200;
+  }
+
+  ::selection {
+    @apply bg-primary-500/20 text-primary-600 dark:bg-primary-400/20 dark:text-primary-300;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-medium font-display tracking-tight 
+           transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+           dark:focus-visible:ring-offset-gray-900;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 focus-visible:ring-primary-500
+           shadow-sm hover:shadow-md dark:bg-primary-500 dark:hover:bg-primary-600;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-primary-600 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 
+           focus-visible:ring-primary-500 shadow-sm hover:shadow-md
+           dark:bg-gray-800 dark:border-gray-700 dark:text-primary-400 
+           dark:hover:bg-gray-700 dark:hover:border-gray-600;
+  }
+
+  .btn-ghost {
+    @apply text-primary-600 hover:bg-primary-50 focus-visible:ring-primary-500
+           dark:text-primary-400 dark:hover:bg-primary-900/50;
+  }
+  
+  .input {
+    @apply block w-full px-4 py-2.5 border-gray-300 rounded-lg text-base shadow-sm 
+           placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500
+           transition-colors duration-200
+           dark:bg-gray-800 dark:border-gray-700 dark:text-white 
+           dark:placeholder-gray-500 dark:focus:border-primary-400 
+           dark:focus:ring-primary-400;
+  }
+
+  .card {
+    @apply rounded-xl bg-white shadow-lg border border-gray-200/50
+           dark:bg-gray-800 dark:border-gray-700/50;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-lg bg-white/75 border border-white/20 shadow-xl rounded-xl
+           dark:bg-gray-800/75 dark:border-gray-700/20;
+  }
+
+  .section-title {
+    @apply font-display text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-500
+           dark:from-primary-400 dark:to-secondary-400;
+  }
+}
+
+/* Custom utility classes (keep if truly custom and not replicable by Tailwind easily) */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Modern scrollbar (optional, Stripe usually uses default OS scrollbars) */
+/* Consider removing if aiming for closer Stripe replication 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+}
+*/
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Selection styling */
+::selection {
+  @apply bg-primary-500/20 text-primary-600 dark:bg-primary-400/20 dark:text-primary-300;
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors;
+}
+
+/* Focus styles */
+*:focus {
+  outline: none;
+} 

@@ -7,13 +7,16 @@ class EventBase(BaseModel):
     title: str
     date: str
     location: str
+    address: str
     categories: List[str]
     price: str
     url: str
-    source: str
+    source: Optional[str] = None
     description: Optional[str] = None
     registration_closes: Optional[str] = None
     scraped_at: Optional[str] = None
+    is_verified: Optional[bool] = True
+    image_url: Optional[str] = None
 
 class EventCreate(EventBase):
     pass

@@ -5,7 +5,7 @@ import os
 
 app = FastAPI(
     title="Running Events Hub API",
-    description="API for managing running events in India",
+    description="API for managing running events and clubs in India",
     version="1.0.0"
 )
 

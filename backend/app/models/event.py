@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, ARRAY, func
+from sqlalchemy import Column, String, DateTime, ARRAY, func, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from app.db.base import Base
@@ -10,6 +10,7 @@ class Event(Base):
     title = Column(String, nullable=False)
     date = Column(String, nullable=False)
     location = Column(String, nullable=False)
+    address = Column(String, nullable=True)
     categories = Column(ARRAY(String), nullable=False, default=list)
     price = Column(String, nullable=False, default="Price TBD")
     url = Column(String, nullable=False)
@@ -17,5 +18,7 @@ class Event(Base):
     description = Column(String, nullable=True)
     registration_closes = Column(String, nullable=True)
     scraped_at = Column(String, nullable=True)
+    image_url = Column(String, nullable=True)
     created_at = Column(DateTime, nullable=False, default=func.now())
-    updated_at = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now()) 
+    updated_at = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
+    is_verified = Column(Boolean, nullable=False, default=False)

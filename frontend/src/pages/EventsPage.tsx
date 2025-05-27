@@ -1,10 +1,9 @@
 import { useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Link } from 'react-router-dom'
 import { getEvents, Event } from '../services/api'
-import { useTheme } from '../contexts/ThemeContext'
-import { formatDate } from '../utils/dateUtils'
 import '../styles/custom.css'
+import PageContainer from '../components/PageContainer'
+import EventCard from '../components/EventCard'
 
 // Icons (simple SVGs as components)
 const SearchIcon = () => (
@@ -19,13 +18,18 @@ const FilterIcon = () => (
   </svg>
 );
 
+// Extended event interface that includes optional description
+interface ExtendedEvent extends Event {
+  description?: string;
+}
+
 export default function EventsPage() {
-  const { isDarkMode } = useTheme()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [selectedLocation, setSelectedLocation] = useState<string>('')
+  const [isFilterVisible, setIsFilterVisible] = useState(false)
 
-  const { data: allEvents = [], isLoading: isLoadingAllEvents, error: allError } = useQuery<Event[]>({
+  const { data: allEvents = [], isLoading: isLoadingAllEvents, error: allError } = useQuery<ExtendedEvent[]>({
     queryKey: ['allEvents'],
     queryFn: getEvents,
   })
@@ -34,7 +38,7 @@ export default function EventsPage() {
   const { categories, locations } = useMemo(() => {
     const categoriesSet = new Set<string>()
     const locationsSet = new Set<string>()
-    allEvents.forEach((event: Event) => {
+    allEvents.forEach((event: ExtendedEvent) => {
       event.categories.forEach((category: string) => categoriesSet.add(category))
       locationsSet.add(event.location)
     })
@@ -46,7 +50,7 @@ export default function EventsPage() {
 
   // Memoize filtered events based on search and select states
   const filteredEvents = useMemo(() => {
-    return allEvents.filter((event: Event) => {
+    return allEvents.filter((event: ExtendedEvent) => {
       const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase())
       const matchesCategory = !selectedCategory || event.categories.includes(selectedCategory)
       const matchesLocation = !selectedLocation || event.location.toLowerCase().includes(selectedLocation.toLowerCase())
@@ -56,164 +60,216 @@ export default function EventsPage() {
 
   if (isLoadingAllEvents) {
     return (
-      <div className={`events-gradient-bg ${isDarkMode ? 'dark' : ''}`}>
-        <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-3xl" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="flex flex-col items-center text-gray-500 dark:text-gray-400">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600 dark:border-primary-400 mb-4" />
-            <p className="text-lg">Loading your running adventures...</p>
+      <PageContainer>
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <div className="relative w-20 h-20 mb-6">
+            <div className="animate-ping absolute inset-0 rounded-full bg-primary-400 opacity-75"></div>
+            <div className="relative rounded-full w-20 h-20 bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center">
+              <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.618 5.968l1.453-1.453 1.414 1.414-1.453 1.453a9 9 0 11-1.414-1.414zM12 20a7 7 0 100-14 7 7 0 000 14zM11 8v6h6v-2h-4V8h-2z"></path>
+              </svg>
+            </div>
           </div>
+          <p className="text-xl font-medium animate-pulse text-gradient">Loading your running adventures...</p>
         </div>
-      </div>
+      </PageContainer>
     )
   }
 
   if (allError) {
     return (
-      <div className={`events-gradient-bg ${isDarkMode ? 'dark' : ''}`}>
-        <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-3xl" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="flex flex-col items-center text-center px-4">
-            <h2 className="text-2xl font-semibold text-red-600 dark:text-red-400 mb-2">Oops! Something went wrong.</h2>
-            <p className="text-gray-600 dark:text-gray-300">We couldn't load the events. Please check your connection or try again later.</p>
+      <PageContainer>
+        <div className="flex flex-col items-center justify-center min-h-screen text-center px-4">
+          <div className="w-20 h-20 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center mb-6">
+            <svg className="w-10 h-10 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
           </div>
+          <h2 className="text-2xl font-semibold text-red-600 dark:text-red-400 mb-2">Oops! Something went wrong.</h2>
+          <p className="text-gray-600 dark:text-gray-300">We couldn't load the events. Please check your connection or try again later.</p>
+          <button 
+            className="mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 hover:opacity-90 transition-opacity text-white px-6 py-2 rounded-lg shadow-lg"
+            onClick={() => window.location.reload()}
+          >
+            Try Again
+          </button>
         </div>
-      </div>
+      </PageContainer>
     )
   }
 
   return (
-    <div className={`events-gradient-bg ${isDarkMode ? 'dark' : ''}`}>
-      <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-3xl" />
-      
-      <div className="absolute inset-0 overflow-auto">
-        <div className="min-h-full w-full px-4 py-12 md:py-16">
-          <header className="mb-10 md:mb-12 text-center">
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-3">
-              Find Your Perfect Run
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Filter through categories and locations to discover events that match your pace.
-            </p>
-          </header>
+    <PageContainer>
+      <div className="min-h-screen w-full px-4 py-12 md:py-16 flex flex-col">
+        {/* Background Elements */}
+        <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 right-0 w-[70%] h-[50%] bg-gradient-to-br from-primary-500/5 to-secondary-500/10 rounded-[50%] blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-[70%] h-[50%] bg-gradient-to-tr from-secondary-500/5 to-primary-500/10 rounded-[50%] blur-3xl"></div>
+        </div>
+        
+        <header className="mb-10 md:mb-16 text-center max-w-3xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-display font-bold mb-5 tracking-tight">
+            <span className="text-gradient">Discover</span> Your <br className="md:hidden" />
+            <span className="relative">
+              Next Run
+              <span className="absolute bottom-1 left-0 right-0 h-3 bg-secondary-500/10"></span>
+            </span>
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Filter through categories and locations to find events that match your pace.
+          </p>
+        </header>
 
-          <section className="mb-10 md:mb-12 max-w-7xl mx-auto">
-            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg rounded-lg p-6 md:p-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-                <div className="relative">
-                  <label htmlFor="search" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Search by Name
-                  </label>
-                  <div className="absolute inset-y-0 left-0 pl-3 pt-7 flex items-center pointer-events-none">
-                    <SearchIcon />
-                  </div>
-                  <input
-                    type="text"
-                    id="search"
-                    className="input pl-10 w-full"
-                    placeholder="E.g., Mumbai Marathon"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Filter by Category
-                  </label>
-                  <select
-                    id="category"
-                    className="input w-full appearance-none"
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                  >
-                    <option value="">All Categories</option>
-                    {categories.map((category: string) => (
-                      <option key={category} value={category}>
-                        {category}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="location" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Filter by Location
-                  </label>
-                  <select
-                    id="location"
-                    className="input w-full appearance-none"
-                    value={selectedLocation}
-                    onChange={(e) => setSelectedLocation(e.target.value)}
-                  >
-                    <option value="">All Locations</option>
-                    {locations.map((location: string) => (
-                      <option key={location} value={location}>
-                        {location}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+        <section className="mb-12 md:mb-16 max-w-5xl mx-auto relative w-full">
+          {/* Search Bar */}
+          <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-6 md:p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <SearchIcon />
+              </div>
+              <input
+                type="text"
+                className="bg-white/50 dark:bg-gray-900/50 w-full pl-10 pr-4 py-4 rounded-xl text-lg border border-gray-200/50 dark:border-gray-700/50 focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all shadow-inner"
+                placeholder="Search events by name..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button 
+                className="md:hidden absolute inset-y-0 right-0 px-4 flex items-center"
+                onClick={() => setIsFilterVisible(!isFilterVisible)}
+              >
+                <FilterIcon />
+              </button>
+            </div>
+            
+            {/* Filters - Desktop */}
+            <div className="hidden md:flex mt-6 gap-6">
+              <div className="flex-1">
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Category
+                </label>
+                <select
+                  id="category"
+                  className="bg-white/50 dark:bg-gray-900/50 w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  <option value="">All Categories</option>
+                  {categories.map((category: string) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex-1">
+                <label htmlFor="location" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Location
+                </label>
+                <select
+                  id="location"
+                  className="bg-white/50 dark:bg-gray-900/50 w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all"
+                  value={selectedLocation}
+                  onChange={(e) => setSelectedLocation(e.target.value)}
+                >
+                  <option value="">All Locations</option>
+                  {locations.map((location: string) => (
+                    <option key={location} value={location}>
+                      {location}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
-          </section>
-
-          <section className="max-w-7xl mx-auto">
-            {filteredEvents.length > 0 ? (
-              <div className="grid gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {filteredEvents.map((event: Event, index: number) => (
-                  <div
-                    key={event.id}
-                    className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg rounded-lg overflow-hidden group flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover-run-animation hover-border-pulse animate-fade-up"
-                    style={{ animationDelay: `${index * 0.05}s` }}
-                  >
-                    <div className="p-6 flex flex-col flex-grow">
-                      <div className="flex items-start justify-between mb-3">
-                        <span className="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider">
-                          {event.categories.join(', ') || 'General'}
-                        </span>
-                        <time className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">
-                          {formatDate(event.date)}
-                        </time>
-                      </div>
-
-                      <Link to={`/events/${event.id}`} className="block mb-3">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200 leading-snug">
-                          {event.title}
-                        </h3>
-                      </Link>
-                      
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 flex-shrink-0">
-                        {event.location} <span className="mx-1">•</span> {event.source}
-                      </p>
-                      
-                      <div className="mt-auto flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
-                        <span className="text-md font-semibold text-gray-800 dark:text-gray-200">
-                          {event.price || 'Check Site'}
-                        </span>
-                        <a
-                          href={event.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-primary text-sm px-6 py-2 rounded-full"
-                        >
-                          Register Now
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            
+            {/* Filters - Mobile */}
+            <div className={`md:hidden mt-6 space-y-4 overflow-hidden transition-all duration-300 ${isFilterVisible ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div>
+                <label htmlFor="category-mobile" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Category
+                </label>
+                <select
+                  id="category-mobile"
+                  className="bg-white/50 dark:bg-gray-900/50 w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  <option value="">All Categories</option>
+                  {categories.map((category: string) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
               </div>
-            ) : (
-              <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg rounded-lg p-10 text-center">
+              <div>
+                <label htmlFor="location-mobile" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Location
+                </label>
+                <select
+                  id="location-mobile"
+                  className="bg-white/50 dark:bg-gray-900/50 w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all"
+                  value={selectedLocation}
+                  onChange={(e) => setSelectedLocation(e.target.value)}
+                >
+                  <option value="">All Locations</option>
+                  {locations.map((location: string) => (
+                    <option key={location} value={location}>
+                      {location}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="max-w-7xl mx-auto w-full flex-grow mb-20">
+          {/* Results count and stats */}
+          <div className="flex justify-between items-center mb-8 px-2">
+            <div>
+              <p className="text-gray-500 dark:text-gray-400">
+                <span className="font-medium text-gray-900 dark:text-white">{filteredEvents.length}</span> events found
+              </p>
+            </div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              {selectedCategory && `Category: ${selectedCategory}`}
+              {selectedCategory && selectedLocation && ' • '}
+              {selectedLocation && `Location: ${selectedLocation}`}
+            </div>
+          </div>
+
+          {filteredEvents.length > 0 ? (
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 animate-staggered-fade-in">
+              {filteredEvents.map((event: ExtendedEvent, index: number) => (
+                <div key={event.id} className="animate-slide-in-bottom h-[500px]" style={{ animationDelay: `${index * 50}ms` }}>
+                  <EventCard event={event} index={index} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-12 text-center border border-white/20 dark:border-gray-700/20 shadow-xl">
+              <div className="w-16 h-16 mx-auto bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-6">
                 <FilterIcon />
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-4 mb-2">No Events Found</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Try adjusting your filters or check back later for new events.
-                </p>
               </div>
-            )}
-          </section>
-        </div>
+              <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-3">No Events Found</h3>
+              <p className="text-gray-600 dark:text-gray-300 max-w-md mx-auto mb-6">
+                Try adjusting your filters or check back later for new events.
+              </p>
+              <button 
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedCategory('');
+                  setSelectedLocation('');
+                }}
+                className="inline-flex items-center px-6 py-2 rounded-lg text-primary-600 dark:text-primary-400 border border-primary-600/20 dark:border-primary-400/20 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
+              >
+                Reset Filters
+              </button>
+            </div>
+          )}
+        </section>
       </div>
-    </div>
+    </PageContainer>
   )
 } 

@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { getEventById } from '../services/api'
+import PageContainer from '../components/PageContainer'
+import { formatDate } from '../utils/dateUtils'
 
 type Event = {
   id: string
@@ -24,63 +26,93 @@ export default function EventDetailsPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
-      </div>
+      <PageContainer>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
+        </div>
+      </PageContainer>
     )
   }
 
   if (error || !event) {
     return (
-      <div className="text-center text-red-600">
-        Error loading event details. Please try again later.
-      </div>
+      <PageContainer>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg rounded-3xl p-8 text-center">
+            <h3 className="text-xl font-semibold text-red-600 dark:text-red-400">Error loading event details</h3>
+            <p className="mt-2 text-gray-600 dark:text-gray-300">Please try again later.</p>
+          </div>
+        </div>
+      </PageContainer>
     )
   }
 
   return (
-    <div className="bg-white shadow rounded-lg overflow-hidden">
-      <div className="px-4 py-5 sm:px-6">
-        <h3 className="text-2xl leading-6 font-bold text-gray-900">{event.title}</h3>
-        <div className="mt-2 flex items-center text-sm text-gray-500">
-          <span className="mr-4">{event.date}</span>
-          <span>{event.location}</span>
+    <PageContainer>
+      <div className="min-h-full w-full px-4 py-16">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg rounded-3xl overflow-hidden shadow-lg hover-card-animation">
+            <div className="px-6 py-8">
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider">
+                    {event.categories.join(', ')}
+                  </span>
+                  <time className="text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
+                    {formatDate(event.date)}
+                  </time>
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                  {event.title}
+                </h1>
+                <div className="flex items-center text-sm text-gray-600 dark:text-gray-300 mb-8">
+                  <span className="mr-2">Location:</span>
+                  <span className="font-medium">{event.location}</span>
+                  <span className="mx-3">•</span>
+                  <span className="mr-2">Source:</span>
+                  <span className="font-medium">{event.source}</span>
+                </div>
+              </div>
+              
+              {event.description && (
+                <div className="mb-8">
+                  <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">
+                    Event Details
+                  </h2>
+                  <div className="text-gray-700 dark:text-gray-300 prose prose-sm max-w-none">
+                    {event.description}
+                  </div>
+                </div>
+              )}
+              
+              <div className="mb-8">
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">
+                  Registration Information
+                </h2>
+                <div className="rounded-xl bg-white/70 dark:bg-gray-700/50 p-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Registration Fee</p>
+                      <p className="font-semibold text-lg text-gray-900 dark:text-white">{event.price || 'Check website'}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-8 flex justify-center">
+                <a
+                  href={event.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary text-lg px-8 py-4 rounded-full hover:scale-105 transition-transform"
+                >
+                  Register Now
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-        <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-          <div className="sm:col-span-1">
-            <dt className="text-sm font-medium text-gray-500">Categories</dt>
-            <dd className="mt-1 text-sm text-gray-900">
-              {event.categories.join(', ')}
-            </dd>
-          </div>
-          <div className="sm:col-span-1">
-            <dt className="text-sm font-medium text-gray-500">Price</dt>
-            <dd className="mt-1 text-sm text-gray-900">{event.price}</dd>
-          </div>
-          <div className="sm:col-span-1">
-            <dt className="text-sm font-medium text-gray-500">Source</dt>
-            <dd className="mt-1 text-sm text-gray-900">{event.source}</dd>
-          </div>
-          {event.description && (
-            <div className="sm:col-span-2">
-              <dt className="text-sm font-medium text-gray-500">Description</dt>
-              <dd className="mt-1 text-sm text-gray-900">{event.description}</dd>
-            </div>
-          )}
-        </dl>
-      </div>
-      <div className="bg-gray-50 px-4 py-4 sm:px-6">
-        <a
-          href={event.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-primary w-full sm:w-auto text-center"
-        >
-          {event.url}
-        </a>
-      </div>
-    </div>
+    </PageContainer>
   )
 } 

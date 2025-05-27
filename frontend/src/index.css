@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import url('https://api.fontshare.com/v2/css?f[]=cal-sans@400,500,600,700&display=swap');
+@import './styles/animations.css';
 
 @tailwind base;
 @tailwind components;
@@ -97,6 +98,14 @@
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-500
            dark:from-primary-400 dark:to-secondary-400;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-primary-600 to-secondary-500;
+  }
+  
+  .glass-effect {
+    @apply bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg border border-white/20 dark:border-gray-700/20;
   }
 }
 

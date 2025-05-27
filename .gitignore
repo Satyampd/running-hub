@@ -44,5 +44,5 @@ build/
 *.bak
 backend/.env
 *_events.json
-
+Temp Files/
 

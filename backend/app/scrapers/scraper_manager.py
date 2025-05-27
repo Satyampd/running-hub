@@ -1,6 +1,7 @@
 from typing import List, Dict, Any
 import uuid
 from .india_running_scraper import IndiaRunningScraper
+from .india_running_scraper_w_api import IndiaRunningAPI
 from .citywoofer_scraper import CityWooferScraper
 from .bhaago_india_scraper import BhaagoIndiaScraper
 from ..cache.cache_manager import CacheManager
@@ -8,15 +9,16 @@ import asyncio
 import logging
 from datetime import datetime
 
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class ScraperManager:
-    def __init__(self, cache_duration_hours: int = 6, max_retries: int = 3):
+    def __init__(self, cache_duration_hours: int = 24, max_retries: int = 1):
         self.scrapers = [
-            IndiaRunningScraper(),
-            CityWooferScraper(),
-            BhaagoIndiaScraper()
+            IndiaRunningAPI(),
+            # CityWooferScraper(), 
+            # BhaagoIndiaScraper()
         ]
         self.cache_manager = CacheManager(cache_duration_hours=cache_duration_hours)
         self.max_retries = max_retries

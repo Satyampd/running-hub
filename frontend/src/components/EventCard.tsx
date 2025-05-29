@@ -1,19 +1,7 @@
 import { Link } from 'react-router-dom';
 import { formatDate } from '../utils/dateUtils';
 import { Event } from '../services/api';
-
-const EVENT_IMAGES = [
-  'https://bitsdroid.com/wp-content/uploads/2025/05/image-2.jpeg',
-  'https://bitsdroid.com/wp-content/uploads/2025/05/image-3.jpeg',
-  'https://bitsdroid.com/wp-content/uploads/2025/05/image-4.jpeg',
-  'https://bitsdroid.com/wp-content/uploads/2025/05/image.jpeg'
-];
-
-// Add this helper function before the EventCard component
-const getRandomImageUrl = () => {
-  const randomIndex = Math.floor(Math.random() * EVENT_IMAGES.length);
-  return EVENT_IMAGES[randomIndex];
-};
+import { getRandomEventImage } from '../utils/imageUtils';
 
 // Icons
 const CalendarIcon = () => (
@@ -48,7 +36,7 @@ interface EventCardProps {
 export default function EventCard({ event, index = 0 }: EventCardProps) {
   return (
     <div 
-      className="glassmorphism-card group relative w-full h-[500px] overflow-hidden rounded-2xl bg-white/70 dark:bg-gray-800/50 backdrop-blur-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover-card-animation hover-shine hover-border-pulse border border-white/30 dark:border-gray-700/30"
+      className="glassmorphism-card group relative w-full h-[430px] overflow-hidden rounded-2xl bg-white/70 dark:bg-gray-800/50 backdrop-blur-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover-card-animation hover-shine hover-border-pulse border border-white/30 dark:border-gray-700/30"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Colorful top notch based on event type */}
@@ -57,7 +45,7 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
       <div className="relative h-48 w-full overflow-hidden">
         {/* Background image */}
         <img 
-          src={getRandomImageUrl()} 
+          src={getRandomEventImage()} 
           alt={event.title} 
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -100,9 +88,9 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
         </Link>
         
         {/* Description */}
-        <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 mb-4">
+        {/* <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 mb-4">
           {event.description || 'Join us for this exciting running event! Participate and challenge yourself.'}
-        </p>
+        </p> */}
         
         {/* Source and price */}
         <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
@@ -112,7 +100,7 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
         
         {/* Action buttons */}
         <div className="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700 mt-auto">
-          <Link
+          {/* <Link
             to={`/events/${event.id}`}
             className="text-primary-600 dark:text-primary-400 hover:underline font-medium text-sm inline-flex items-center"
           >
@@ -121,7 +109,7 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
               <ArrowIcon />
             </span>
           </Link>
-          
+           */}
           <a
             href={event.url}
             target="_blank"

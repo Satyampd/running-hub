@@ -13,7 +13,7 @@ export default function PageContainer({
   withBackground = true 
 }: PageContainerProps) {
   const { isDarkMode } = useTheme();
-  
+   
   return (
     <div className={`min-h-full pb-16 relative ${isDarkMode ? 'dark' : ''}`}>
       {/* Background elements */}

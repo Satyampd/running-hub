@@ -5,6 +5,7 @@ import { formatDate, compareDates } from '../utils/dateUtils'
 import '../styles/custom.css'
 import PageContainer from '../components/PageContainer'
 import { useEffect, useRef, useState } from 'react'
+import {getRandomEventImage} from '../utils/imageUtils'
 
 // Icons
 const RunIcon = () => (
@@ -221,7 +222,8 @@ export default function HomePage() {
                     <FadeInWhenVisible key={event.id} delay={index * 100}>
                       <div className="bg-white/70 dark:bg-gray-800/50 backdrop-blur-xl rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:translate-y-[-8px] group">
                         <div className="relative h-48 bg-gradient-to-r from-primary-600 to-secondary-500 overflow-hidden">
-                          <div className="absolute inset-0 bg-[url('/path/to/pattern.svg')] opacity-20"></div>
+                          <div className="absolute inset-0 bg-[url('frontend/public/image.png')] opacity-20"></div>
+                          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${getRandomEventImage()})` }}></div>
                           <div className="p-6 relative z-10 h-full flex flex-col justify-end">
                             <div className="flex items-center space-x-2 text-white/90">
                               <CalendarIcon />

@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getEvents, Event } from '../services/api'
+import { compareDates } from '../utils/dateUtils'
 import '../styles/custom.css'
 import PageContainer from '../components/PageContainer'
 import EventCard from '../components/EventCard'
@@ -34,11 +35,17 @@ export default function EventsPage() {
     queryFn: getEvents,
   })
 
+    // Sort all events by date (ascending)
+  const sortedAllEvents = useMemo(() => {
+    return [...allEvents].sort((a, b) => compareDates(a.date, b.date));
+  }, [allEvents]);
+
+
   // Memoize categories and locations from all fetched events
   const { categories, locations } = useMemo(() => {
     const categoriesSet = new Set<string>()
     const locationsSet = new Set<string>()
-    allEvents.forEach((event: ExtendedEvent) => {
+    sortedAllEvents.forEach((event: ExtendedEvent) => {
       event.categories.forEach((category: string) => categoriesSet.add(category))
       locationsSet.add(event.location)
     })
@@ -46,17 +53,33 @@ export default function EventsPage() {
       categories: Array.from(categoriesSet).sort(),
       locations: Array.from(locationsSet).sort(),
     }
-  }, [allEvents])
+  }, [sortedAllEvents])
 
   // Memoize filtered events based on search and select states
+  // const filteredEvents = useMemo(() => {
+  //   return sortedAllEvents.filter((event: ExtendedEvent) => {
+  //     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase())
+  //     const matchesCategory = !selectedCategory || event.categories.includes(selectedCategory)
+  //     const matchesLocation = !selectedLocation || event.location.toLowerCase().includes(selectedLocation.toLowerCase())
+  //     return matchesSearch && matchesCategory && matchesLocation
+  //   })
+  // }, [sortedAllEvents, searchTerm, selectedCategory, selectedLocation])
+  
   const filteredEvents = useMemo(() => {
-    return allEvents.filter((event: ExtendedEvent) => {
-      const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesCategory = !selectedCategory || event.categories.includes(selectedCategory)
-      const matchesLocation = !selectedLocation || event.location.toLowerCase().includes(selectedLocation.toLowerCase())
-      return matchesSearch && matchesCategory && matchesLocation
-    })
-  }, [allEvents, searchTerm, selectedCategory, selectedLocation])
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // reset time to start of today
+
+  return sortedAllEvents.filter((event: ExtendedEvent) => {
+    const eventDate = new Date(event.date);
+    eventDate.setHours(0, 0, 0, 0); // also normalize event date
+    const isUpcoming = eventDate >= today;
+    const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = !selectedCategory || event.categories.includes(selectedCategory);
+    const matchesLocation = !selectedLocation || event.location.toLowerCase().includes(selectedLocation.toLowerCase());
+
+    return isUpcoming && matchesSearch && matchesCategory && matchesLocation;
+  });
+}, [sortedAllEvents, searchTerm, selectedCategory, selectedLocation]);
 
   if (isLoadingAllEvents) {
     return (

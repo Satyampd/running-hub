@@ -6,6 +6,8 @@ import '../styles/custom.css'
 import PageContainer from '../components/PageContainer'
 import { useEffect, useRef, useState } from 'react'
 import {getRandomEventImage} from '../utils/imageUtils'
+import VerticalScroller from '../components/VerticalScroller'; 
+
 
 // Icons
 const RunIcon = () => (
@@ -108,6 +110,15 @@ export default function HomePage() {
     queryKey: ['events'],
     queryFn: getEvents,
   });
+  
+  const scrollerItems = [
+    "New Events Weekly!",
+    "All India Coverage",
+    "Trail Runs & Marathons",
+    "Fun Runs Included",
+    "Easy Registration",
+    "Join Our Community"
+  ];
 
   // Get the next 3 upcoming events
   const upcomingEvents = events
@@ -334,3 +345,4 @@ export default function HomePage() {
     </PageContainer>
   )
 } 
+

@@ -7,6 +7,12 @@ interface EventSubmissionFormProps {
   onSuccess?: () => void;
 }
 
+const majorCities = [
+  'Mumbai', 'Delhi NCR', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad',
+  'Jaipur', 'Surat', 'Lucknow', 'Kanpur', 'Nagpur', 'Indore', 'Thane', 'Bhopal',
+  'Visakhapatnam', 'Patna', 'Vadodara', 'Ghaziabad', 'Ludhiana', 'Agra', 'Nashik',
+];
+
 const EventSubmissionForm: React.FC<EventSubmissionFormProps> = ({ onSuccess }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -22,6 +28,7 @@ const EventSubmissionForm: React.FC<EventSubmissionFormProps> = ({ onSuccess }) 
     image_url: '',
   });
 
+  const [cityDropdownValue, setCityDropdownValue] = useState<string>(''); // To manage the dropdown selection ('Mumbai', 'Other', etc.)
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
@@ -128,7 +135,7 @@ const EventSubmissionForm: React.FC<EventSubmissionFormProps> = ({ onSuccess }) 
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Location (City) *</label>
                 <input
                   type="text"
@@ -138,7 +145,42 @@ const EventSubmissionForm: React.FC<EventSubmissionFormProps> = ({ onSuccess }) 
                   className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400"
                   placeholder="e.g., Mumbai, Delhi NCR, Bangalore"
                 />
-              </div>
+              </div> */}
+              
+             <div>
+                <label htmlFor="location-city" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Location (City) *</label>
+                <select
+                  id="location-city"
+                  value={cityDropdownValue}
+                  onChange={(e) => {
+                    const selectedValue = e.target.value;
+                    setCityDropdownValue(selectedValue);
+                    if (selectedValue === 'Other') {
+                      setFormData({ ...formData, location: '' }); // Clear location for custom input
+                    } else {
+                      setFormData({ ...formData, location: selectedValue }); // Set location from dropdown
+                    }
+                  }}
+                  className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-blue-500"
+                >
+                  <option value="">Select City *</option>
+                  {majorCities.map(city => (
+                    <option key={city} value={city}>{city}</option>
+                  ))}
+                  <option value="Other">Other (Please specify)</option>
+                </select>
+
+                {cityDropdownValue === 'Other' && (
+                  <input
+                    type="text"
+                    required // This HTML5 validation is a plus, main validation in handleSubmit
+                    value={formData.location} // This directly updates formData.location
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                    className="mt-2 block w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-blue-500"
+                    placeholder="Enter your city"
+                  />
+                )}
+              </div>              
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Detailed Address</label>

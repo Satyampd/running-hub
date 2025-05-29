@@ -93,7 +93,7 @@ const EventSubmissionForm: React.FC<EventSubmissionFormProps> = ({ onSuccess }) 
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">Submit a Running Event</h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-            Share your running event with our community. All submissions will be reviewed before being published.
+            Share your running event with our community. <br/> All submissions will be reviewed before being published.
           </p>
         </div>
 
@@ -146,7 +146,7 @@ const EventSubmissionForm: React.FC<EventSubmissionFormProps> = ({ onSuccess }) 
                   placeholder="e.g., Mumbai, Delhi NCR, Bangalore"
                 />
               </div> */}
-              
+
              <div>
                 <label htmlFor="location-city" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Location (City) *</label>
                 <select

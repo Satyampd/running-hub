@@ -250,7 +250,7 @@ const ClubSubmissionForm: React.FC<ClubSubmissionFormProps> = ({ onSuccess }) =>
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">Register Your Running Club</h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-            Share your running club with our community. Help runners find their perfect running group!
+            Share your running club with our community, help runners find their perfect running group! <br/> All submissions will be reviewed before being published.
           </p>
         </div>
 

@@ -134,10 +134,10 @@ export default function ClubSubmissionForm({ onSuccess }: ClubSubmissionFormProp
 
     const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
     if (formData.website_url.trim() && !urlRegex.test(formData.website_url)) {
-      validationErrors.push('Please enter a valid website URL.');
+      validationErrors.push('Please enter a valid website URL(with https://).');
     }
     if (formData.logo_url.trim() && !urlRegex.test(formData.logo_url)) {
-      validationErrors.push('Please enter a valid logo URL.');
+      validationErrors.push('Please enter a valid logo URL(with https://).');
     }
     formData.photos.forEach((photo, index) => {
       if (photo.trim() && !urlRegex.test(photo)) {

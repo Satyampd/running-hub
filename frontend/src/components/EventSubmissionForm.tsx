@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
-// PageContainer import is no longer needed here as FormPageLayout handles it
+import { formatDate } from '../utils/dateUtils'; 
 import '../styles/custom.css'; // Ensure custom styles are imported
 
 // --- CONSTANTS ---
@@ -14,7 +14,7 @@ const majorCities = [
 ];
 
 const predefinedEventCategories = [
-  'Marathon', 'Half Marathon', '10K', '5K', 'Trail Run', 'Ultra Marathon',
+  'Marathon', 'Half Marathon', '10K', '5K', '10 Miles', 'Couple Run', 'Trail Run', 'Ultra Marathon',
   'Fun Run', 'Virtual Run', 'Charity Run', 'Relay Race', 'Kids Run'
 ];
 
@@ -96,7 +96,7 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
       validationErrors.push("Please specify the city if 'Other' is selected.");
     }
     if (!formData.price.trim()) validationErrors.push('Price is required.');
-    if (!formData.url.trim()) validationErrors.push('Registration URL is required.');
+    if (!formData.url.trim()) validationErrors.push('Registration URL is required.(with https://');
 
     // --- Format Validations ---
     const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
@@ -126,8 +126,12 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
 
     // Prepare data for submission (categories are already in formData.categories)
     createEventMutation.mutate({
-        ...formData,
-        categories: validCategories // Send only valid, trimmed categories
+      ...formData,
+      date: formatDate(formData.date), 
+      registration_closes: formData.registration_closes
+        ? formatDate(formData.registration_closes)
+        : '',
+      categories: validCategories,
     });
   };
 

@@ -25,14 +25,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.9.0
       - key: DATABASE_URL
-        fromDatabase:
-          name: running-events-db
-          property: connectionString
+        value: ''
       - key: ALLOW_ALL_ORIGINS
         value: "true"
 
-# Database
-databases:
-  - name: running-events-db
-    plan: free
-    region: ohio

@@ -8,10 +8,11 @@ import AboutPage from './pages/AboutPage'
 import TermsPage from './pages/TermsPage'
 import ContactPage from './pages/ContactPage'
 import SubmitEvent from './pages/SubmitEvent'
+import SubmitClub from './pages/SubmitClub'
 import { ThemeProvider } from './contexts/ThemeContext'
 import ClubsPage from './pages/ClubsPage'
 import ClubDetailPage from './pages/ClubDetailPage'
-import ClubSubmissionForm from './components/ClubSubmissionForm'
+// import ClubSubmissionForm from './components/ClubSubmissionForm'
 
 const queryClient = new QueryClient()
 
@@ -31,7 +32,8 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/clubs" element={<ClubsPage />} />
               <Route path="/clubs/:id" element={<ClubDetailPage />} />
-              <Route path="/submit-club" element={<ClubSubmissionForm />} />
+              {/* <Route path="/submit-club" element={<ClubSubmissionForm />} /> */}
+              <Route path="/submit-club" element={<SubmitClub />} />
             </Route>
           </Routes>
         </Router>

@@ -6,7 +6,6 @@ import '../styles/custom.css'
 import PageContainer from '../components/PageContainer'
 import { useEffect, useRef, useState } from 'react'
 import {getRandomEventImage} from '../utils/imageUtils'
-import VerticalScroller from '../components/VerticalScroller'; 
 
 
 // Icons

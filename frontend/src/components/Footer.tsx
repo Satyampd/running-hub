@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useTheme } from '../contexts/ThemeContext';
+// import { useTheme } from '../contexts/ThemeContext';
 import { TwitterIcon, InstagramIcon, FacebookIcon } from './Icons'; // Import icons
 
-// Social Media Icons (These are now moved to Icons.tsx)
-// const TwitterIcon = () => (...)
-// const InstagramIcon = () => (...)
-// const FacebookIcon = () => (...)
-
 export default function Footer() {
-  const { isDarkMode } = useTheme();
+  // const { isDarkMode } = useTheme();
   
   return (
     <footer className="w-full mt-auto bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">

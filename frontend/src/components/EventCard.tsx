@@ -3,7 +3,7 @@ import { formatDate } from '../utils/dateUtils';
 import { Event } from '../services/api';
 import { getRandomEventImage } from '../utils/imageUtils';
 import { animatedGlassCard } from '../styles/commonStyles';
-import { CalendarIcon, LocationIcon, ArrowIcon } from './Icons';
+import { CalendarIcon, LocationIcon } from './Icons';
 import { formatPrice } from '../utils/currencyUtils';
 
 // Extended event interface that includes optional description

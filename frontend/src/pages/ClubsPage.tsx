@@ -1,9 +1,9 @@
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState,  useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
-import { debounce } from 'lodash';
+// import { debounce } from 'lodash';
 import PageContainer from '../components/PageContainer';
 import '../styles/custom.css';
 import { SearchIcon, FilterIcon } from '../components/Icons';
@@ -29,10 +29,10 @@ export default function ClubsPage() {
   const [selectedSkillLevel, setSelectedSkillLevel] = useState('');
   const [isFilterVisible, setIsFilterVisible] = useState(false);
 
-  const debouncedSetSearchTerm = useCallback(
-    debounce((value: string) => { /* no-op for now, as searchTerm is direct */ }, 300),
-    []
-  );
+  // const debouncedSetSearchTerm = useCallback(
+  //   debounce((value: string) => { /* no-op for now, as searchTerm is direct */ }, 300),
+  //   []
+  // );
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);

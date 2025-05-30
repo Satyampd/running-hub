@@ -27,9 +27,9 @@ htmlcov/
 coverage.xml
 
 # Build artifacts
-dist/
-build/
-*.egg-info/
+# dist/
+# build/
+# *.egg-info/
 
 # Database files
 *.sqlite3

@@ -5,19 +5,7 @@ import { compareDates } from '../utils/dateUtils'
 import '../styles/custom.css'
 import PageContainer from '../components/PageContainer'
 import EventCard from '../components/EventCard'
-
-// Icons (simple SVGs as components)
-const SearchIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-400 dark:text-gray-500">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-  </svg>
-);
-
-const FilterIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2 dark:text-gray-400">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 7.998.654a.75.75 0 01.752.752V6.69a.75.75 0 01-.34.632l-4.072 3.29a.75.75 0 00-.34.633v4.037c0 .19-.08.37-.214.504l-2.21 2.056a.75.75 0 01-1.062-.006l-2.198-2.05a.75.75 0 01-.217-.506V11.343a.75.75 0 00-.34-.632L3.6 7.422a.75.75 0 01-.34-.632V4.406a.75.75 0 01.752-.752C6.545 3.232 9.245 3 12 3z" />
-  </svg>
-);
+import { SearchIcon, FilterIcon } from '../components/Icons'
 
 // Extended event interface that includes optional description
 interface ExtendedEvent extends Event {

@@ -48,14 +48,14 @@ class IndiaRunningAPI(BaseScraper): # Inherit from BaseScraper
                     event = {
                         "title": event_data.get("title", "Unknown Event"),
                         "date": self._parse_date(event_data["eventDate"]["start"]) if event_data.get("eventDate") else "Date TBD",
-                        "location": self._extract_location(event_data.get("locationInfo", {})),
+                        "location": self._extract_location(event_data.get("locationInfo", {})).split(',')[-1] ,
                         "categories": [
                             cat.get("category", "Unknown Category")
                             for cat in event_data.get("categories", [])
                         ],
                         "price": event_data.get("price", "Price TBD"),
                         "url": f"https://registrations.indiarunning.com/{event_data.get('slug', '')}",
-                        "source": "IndiaRunning.com",
+                        "source": "IndiaRunning",
                         "description": event_data["aboutRace"][0]["content"] if event_data.get("aboutRace") else "No description available",
                     }
                     all_events.append(event)

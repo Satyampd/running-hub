@@ -2,26 +2,9 @@ import { Link } from 'react-router-dom';
 import { formatDate } from '../utils/dateUtils';
 import { Event } from '../services/api';
 import { getRandomEventImage } from '../utils/imageUtils';
-
-// Icons
-const CalendarIcon = () => (
-  <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-  </svg>
-);
-
-const LocationIcon = () => (
-  <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-  </svg>
-);
-
-const ArrowIcon = () => (
-  <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-    <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-  </svg>
-);
+import { animatedGlassCard } from '../styles/commonStyles';
+import { CalendarIcon, LocationIcon, ArrowIcon } from './Icons';
+import { formatPrice } from '../utils/currencyUtils';
 
 // Extended event interface that includes optional description
 interface ExtendedEvent extends Event {
@@ -36,7 +19,7 @@ interface EventCardProps {
 export default function EventCard({ event, index = 0 }: EventCardProps) {
   return (
     <div 
-      className="glassmorphism-card group relative w-full h-[430px] overflow-hidden rounded-2xl bg-white/70 dark:bg-gray-800/50 backdrop-blur-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover-card-animation hover-shine hover-border-pulse border border-white/30 dark:border-gray-700/30"
+      className={`${animatedGlassCard} group relative w-full h-[430px]`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Colorful top notch based on event type */}
@@ -95,7 +78,8 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
         {/* Source and price */}
         <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
           <span>Source: {event.source}</span>
-          <span className="font-medium text-gray-800 dark:text-gray-300">{event.price || 'Check website'}</span>
+          {/* <span className="font-medium text-gray-800 dark:text-gray-300">{event.price || 'Check website'}</span> */}
+          <span className="font-medium text-gray-800 dark:text-gray-300">  {formatPrice(event.price)} </span>
         </div>
         
         {/* Action buttons */}

@@ -6,10 +6,16 @@ from app.models.event import Event as EventModel
 from app.schemas.club import Club, ClubCreate
 from app.models.club import Club as ClubModel
 from app.db.base import SessionLocal
-import json
+from app.api.scraping import router as scraping_router
+
 import uuid
 
+
+
 router = APIRouter()
+
+# Include the scraping router
+router.include_router(scraping_router, prefix="/scrape", tags=["scraping"])
 
 # Dependency
 def get_db():

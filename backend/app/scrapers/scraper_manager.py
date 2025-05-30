@@ -18,7 +18,7 @@ class ScraperManager:
         self.scrapers = [
             IndiaRunningAPI(),
             # CityWooferScraper(), 
-            # BhaagoIndiaScraper()
+            BhaagoIndiaScraper()
         ]
         self.cache_manager = CacheManager(cache_duration_hours=cache_duration_hours)
         self.max_retries = max_retries

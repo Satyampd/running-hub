@@ -1,22 +1,14 @@
-
 import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { formatDate } from '../utils/dateUtils'; 
 import '../styles/custom.css'; // Ensure custom styles are imported
+import { MAJOR_CITIES, PREDEFINED_EVENT_CATEGORIES } from '../config/constants'; // Corrected import path
 
-// --- CONSTANTS ---
-const majorCities = [
-  'Mumbai', 'Delhi NCR', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad',
-  'Jaipur', 'Surat', 'Lucknow', 'Kanpur', 'Nagpur', 'Indore', 'Thane', 'Bhopal',
-  'Visakhapatnam', 'Patna', 'Vadodara', 'Ghaziabad', 'Ludhiana', 'Agra', 'Nashik',
-];
-
-const predefinedEventCategories = [
-  'Marathon', 'Half Marathon', '10K', '5K', '10 Miles', 'Couple Run', 'Trail Run', 'Ultra Marathon',
-  'Fun Run', 'Virtual Run', 'Charity Run', 'Relay Race', 'Kids Run'
-];
+// --- CONSTANTS --- (These are now in config/constants.ts)
+// const majorCities = [...];
+// const predefinedEventCategories = [...];
 
 interface EventSubmissionFormProps {
   onSuccess?: () => void;
@@ -222,7 +214,7 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
             className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all shadow-inner"
           >
             <option value="">Select City</option>
-            {majorCities.map(city => (
+            {MAJOR_CITIES.map((city: string) => (
               <option key={city} value={city}>{city}</option>
             ))}
             <option value="Other">Other (Please specify)</option>
@@ -254,7 +246,7 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Event Categories</label>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 mb-3">
-            {predefinedEventCategories.map(cat => (
+            {PREDEFINED_EVENT_CATEGORIES.map((cat: string) => (
               <label key={cat} className="flex items-center space-x-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                 <input
                   type="checkbox"

@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional
 import aiohttp
 from bs4 import BeautifulSoup
-import logging
+from app.core.logging_config import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 class BaseScraper(ABC):
     def __init__(self, base_url: str):
@@ -16,34 +16,43 @@ class BaseScraper(ABC):
             'Connection': 'keep-alive',
         }
         self._session: Optional[aiohttp.ClientSession] = None
+        logger.debug(f"BaseScraper initialized for URL: {base_url}")
 
     async def get_session(self) -> aiohttp.ClientSession:
         """Get or create an aiohttp session."""
         if self._session is None or self._session.closed:
+            logger.debug("Creating new aiohttp ClientSession.")
             timeout = aiohttp.ClientTimeout(total=30)
             self._session = aiohttp.ClientSession(headers=self.headers, timeout=timeout)
+        else:
+            logger.debug("Reusing existing aiohttp ClientSession.")
         return self._session
 
     async def close(self):
         """Close the session if it exists."""
         if self._session and not self._session.closed:
+            logger.debug("Closing aiohttp ClientSession.")
             await self._session.close()
+        else:
+            logger.debug("aiohttp ClientSession already closed or does not exist.")
 
     async def fetch_page(self, url: str) -> str:
         """Fetch page content asynchronously."""
+        logger.debug(f"Fetching page: {url}")
         try:
             session = await self.get_session()
             async with session.get(url, allow_redirects=True, ssl=False) as response:
-                if response.status == 200:
-                    return await response.text()
-                else:
-                    logger.error(f"Error fetching {url}: Status {response.status}")
-                    return ""
+                response.raise_for_status()
+                logger.info(f"Successfully fetched {url} with status {response.status}")
+                return await response.text()
+        except aiohttp.ClientResponseError as e:
+            logger.error(f"HTTP error fetching {url}: Status {e.status}, Message: {e.message}", exc_info=True)
+            return ""
         except aiohttp.ClientError as e:
-            logger.error(f"Network error fetching {url}: {str(e)}")
+            logger.error(f"Client error fetching {url}: {e}", exc_info=True)
             return ""
         except Exception as e:
-            logger.error(f"Unexpected error fetching {url}: {str(e)}")
+            logger.error(f"Unexpected error fetching {url}: {e}", exc_info=True)
             return ""
 
     @abstractmethod
@@ -69,9 +78,11 @@ class BaseScraper(ABC):
 
     async def __aenter__(self):
         """Support for async context manager."""
+        logger.debug(f"Entering async context for {self.__class__.__name__}.")
         await self.get_session()
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """Cleanup for async context manager."""
+        logger.debug(f"Exiting async context for {self.__class__.__name__}. Exc type: {exc_type}")
         await self.close() 

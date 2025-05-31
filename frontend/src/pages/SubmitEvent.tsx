@@ -16,7 +16,7 @@ const SubmitEvent: React.FC = () => {
 
   const descriptionContent = (
     <>
-      Share your running event with our community. All submissions will be reviewed before being published.
+      Share your running event with our community.<br/> All submissions will be reviewed before being published.
     </>
   );
 

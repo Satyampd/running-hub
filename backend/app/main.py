@@ -13,7 +13,6 @@ from app.api.routes import router as api_router
 
 # Logging
 logger = get_logger(__name__) # Use the new logger
-# logging.basicConfig(level=logging.INFO) # Remove old logging config
 
 # CORS Origins
 ALLOWED_ORIGINS = [

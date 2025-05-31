@@ -13,11 +13,14 @@ import { ThemeProvider } from './contexts/ThemeContext'
 import ClubsPage from './pages/ClubsPage'
 import ClubDetailPage from './pages/ClubDetailPage'
 import ScrollToTop from './components/ScrollToTop'
+import useAnalytics from './hooks/useAnalytics'
 // import ClubSubmissionForm from './components/ClubSubmissionForm'
 
 const queryClient = new QueryClient()
 
 function App() {
+
+  useAnalytics()
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>

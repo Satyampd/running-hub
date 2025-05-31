@@ -12,6 +12,7 @@ import SubmitClub from './pages/SubmitClub'
 import { ThemeProvider } from './contexts/ThemeContext'
 import ClubsPage from './pages/ClubsPage'
 import ClubDetailPage from './pages/ClubDetailPage'
+import ScrollToTop from './components/ScrollToTop'
 // import ClubSubmissionForm from './components/ClubSubmissionForm'
 
 const queryClient = new QueryClient()
@@ -21,6 +22,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <Router>
+          <ScrollToTop /> 
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomePage />} />
@@ -32,7 +34,6 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/clubs" element={<ClubsPage />} />
               <Route path="/clubs/:id" element={<ClubDetailPage />} />
-              {/* <Route path="/submit-club" element={<ClubSubmissionForm />} /> */}
               <Route path="/submit-club" element={<SubmitClub />} />
             </Route>
           </Routes>

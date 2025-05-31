@@ -115,7 +115,8 @@ export default function ClubsPage() {
           <div className="absolute bottom-0 left-0 w-[70%] h-[50%] bg-gradient-to-tr from-secondary-500/5 to-primary-500/10 rounded-[50%] blur-3xl"></div>
         </div>
 
-        <header className="mb-10 md:mb-16 text-center max-w-3xl mx-auto">
+        {/* <header className="mb-10 md:mb-16 text-center max-w-3xl mx-auto"> */}
+        <header className="mt-7 md:mt-5 mb-10 md:mb-16 text-center max-w-3xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-display font-bold mb-5 tracking-tight">
             <span className="text-gradient">Discover</span> Your <br className="md:hidden" />
             <span className="relative">

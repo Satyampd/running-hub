@@ -34,3 +34,5 @@ python-dateutil==2.9.0
 httpx
 pydantic[email]
 apscheduler
+httpx
+schedule

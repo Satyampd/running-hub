@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getEvents, Event } from '../services/api'
 import { compareDates } from '../utils/dateUtils'
@@ -6,6 +6,7 @@ import '../styles/custom.css'
 import PageContainer from '../components/PageContainer'
 import EventCard from '../components/EventCard'
 import { SearchIcon, FilterIcon } from '../components/Icons'
+import { useSearchParams } from 'react-router-dom'
 
 // Extended event interface that includes optional description
 interface ExtendedEvent extends Event {
@@ -13,9 +14,10 @@ interface ExtendedEvent extends Event {
 }
 
 export default function EventsPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string>('')
-  const [selectedLocation, setSelectedLocation] = useState<string>('')
+  const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get('category') || '')
+  const [selectedLocation, setSelectedLocation] = useState<string>(searchParams.get('location') || '')
   const [isFilterVisible, setIsFilterVisible] = useState(false)
 
   const { data: allEvents = [], isLoading: isLoadingAllEvents, error: allError } = useQuery<ExtendedEvent[]>({
@@ -23,11 +25,19 @@ export default function EventsPage() {
     queryFn: getEvents,
   })
 
-    // Sort all events by date (ascending)
+  // Update URL when filters change
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (selectedCategory) params.set('category', selectedCategory);
+    if (selectedLocation) params.set('location', selectedLocation);
+    if (searchTerm) params.set('search', searchTerm);
+    setSearchParams(params);
+  }, [selectedCategory, selectedLocation, searchTerm, setSearchParams]);
+
+  // Sort all events by date (ascending)
   const sortedAllEvents = useMemo(() => {
     return [...allEvents].sort((a, b) => compareDates(a.date, b.date));
   }, [allEvents]);
-
 
   // Memoize categories and locations from all fetched events
   const { categories, locations } = useMemo(() => {
@@ -44,30 +54,21 @@ export default function EventsPage() {
   }, [sortedAllEvents])
 
   // Memoize filtered events based on search and select states
-  // const filteredEvents = useMemo(() => {
-  //   return sortedAllEvents.filter((event: ExtendedEvent) => {
-  //     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase())
-  //     const matchesCategory = !selectedCategory || event.categories.includes(selectedCategory)
-  //     const matchesLocation = !selectedLocation || event.location.toLowerCase().includes(selectedLocation.toLowerCase())
-  //     return matchesSearch && matchesCategory && matchesLocation
-  //   })
-  // }, [sortedAllEvents, searchTerm, selectedCategory, selectedLocation])
-  
   const filteredEvents = useMemo(() => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // reset time to start of today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // reset time to start of today
 
-  return sortedAllEvents.filter((event: ExtendedEvent) => {
-    const eventDate = new Date(event.date);
-    eventDate.setHours(0, 0, 0, 0); // also normalize event date
-    const isUpcoming = eventDate >= today;
-    const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = !selectedCategory || event.categories.includes(selectedCategory);
-    const matchesLocation = !selectedLocation || event.location.toLowerCase().includes(selectedLocation.toLowerCase());
+    return sortedAllEvents.filter((event: ExtendedEvent) => {
+      const eventDate = new Date(event.date);
+      eventDate.setHours(0, 0, 0, 0); // also normalize event date
+      const isUpcoming = eventDate >= today;
+      const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = !selectedCategory || event.categories.includes(selectedCategory);
+      const matchesLocation = !selectedLocation || event.location.toLowerCase() === selectedLocation.toLowerCase();
 
-    return isUpcoming && matchesSearch && matchesCategory && matchesLocation;
-  });
-}, [sortedAllEvents, searchTerm, selectedCategory, selectedLocation]);
+      return isUpcoming && matchesSearch && matchesCategory && matchesLocation;
+    });
+  }, [sortedAllEvents, searchTerm, selectedCategory, selectedLocation]);
 
   if (isLoadingAllEvents) {
     return (

@@ -6,8 +6,8 @@ import {  compareDates } from '../utils/dateUtils';
 import '../styles/custom.css';
 import PageContainer from '../components/PageContainer';
 import { useEffect, useRef, useState } from 'react';
-import { RunIcon, FilterIcon } from '../components/Icons'; // FilterIcon might be removed if not used elsewhere
-import { RUNNING_QUOTES, PREDEFINED_EVENT_CATEGORIES, MAJOR_CITIES } from '../config/constants'; // Added MAJOR_CITIES
+import { RunIcon } from '../components/Icons'; // FilterIcon might be removed if not used elsewhere
+import {  PREDEFINED_EVENT_CATEGORIES, MAJOR_CITIES } from '../config/constants'; // Added MAJOR_CITIES
 import EventCard from '../components/EventCard';
 import ClubCard from '../components/ClubCard'; // Import the ClubCard component
 import api from '../services/api'; // Import your API service to fetch clubs

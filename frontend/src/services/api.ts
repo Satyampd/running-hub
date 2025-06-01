@@ -10,6 +10,7 @@ export interface Event {
   price: string;
   url: string;
   source: string;
+  registration_closes: string;
 }
 
 // Determine the API base URL based on environment or hostname

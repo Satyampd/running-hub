@@ -1,3 +1,4 @@
+from datetime import date, datetime, timedelta
 from fastapi import APIRouter, HTTPException, Depends, Request
 from typing import List
 from sqlalchemy.orm import Session
@@ -29,17 +30,27 @@ def get_db():
         # logger.debug("Closing database session.")
         db.close()
 
+
 @router.get("/events", response_model=List[Event])
 async def get_events(request: Request, db: Session = Depends(get_db)):
     logger.info(f"GET /events request from {request.client.host}")
-    """Get all running events from database"""
     try:
-        events = db.query(EventModel).all()
-        logger.info(f"Retrieved {len(events)} events from database.")
-        return events
+        today = date.today() # - timedelta(days=1)  # Get today's date minus one day
+        verified_events = events = db.query(EventModel).all()
+        # verified_events = db.query(EventModel).filter(EventModel.is_verified == True).all()
+
+        # filter events in Python by parsing string dates
+        filtered_events = []
+        for event in verified_events:
+            # parse event.date string e.g. '9 Nov 2025'
+            event_date = datetime.strptime(event.date, "%d %b %Y").date()
+            if event_date >= today:
+                filtered_events.append(event)
+
+        return filtered_events
     except Exception as e:
-        logger.error(f"Error getting events: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Error fetching events: {e}")
+        raise HTTPException(status_code=500, detail="Error fetching events")
 
 @router.post("/events", response_model=Event)
 async def create_event(event: EventCreate, request: Request, db: Session = Depends(get_db)):

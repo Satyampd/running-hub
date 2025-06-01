@@ -23,7 +23,7 @@ export const cityImages = {
   "Bangalore": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Bangalore.jpeg",
   "Chennai": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Chennai.jpeg",
   "Kolkata": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Kolkata.jpeg",
-  "Pune": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Pune.jpeg",
+  "Pune": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Pune-1.png",
   "Ahmedabad": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Ahmedabad.jpeg",
   "Jaipur": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Jaipur.jpeg",
   "Surat": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Surat.jpeg",
@@ -39,7 +39,8 @@ export const cityImages = {
   "Ghaziabad": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Ghaziabad.jpeg",
   "Ludhiana": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Ludhiana.jpeg",
   "Agra": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Agra.jpeg",
-  "Nashik": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Nashik.jpeg"
+  "Nashik": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Nashik.jpeg", 
+  
 };
 
 /**

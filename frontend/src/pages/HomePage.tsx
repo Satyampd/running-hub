@@ -1,18 +1,18 @@
+
 // src/pages/HomePage.tsx
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getEvents, Event } from '../services/api';
-import {  compareDates } from '../utils/dateUtils';
+import { compareDates } from '../utils/dateUtils';
 import '../styles/custom.css';
 import PageContainer from '../components/PageContainer';
 import { useEffect, useRef, useState } from 'react';
-import { RunIcon } from '../components/Icons'; 
-import {  cityImages, PREDEFINED_EVENT_CATEGORIES, MAJOR_CITIES } from '../config/constants'; // Added MAJOR_CITIES
+import { cityImages, PREDEFINED_EVENT_CATEGORIES, MAJOR_CITIES } from '../config/constants';
 import EventCard from '../components/EventCard';
 import ClubCard from '../components/ClubCard'; 
 import api from '../services/api'; 
+import { RunIcon } from '../components/Icons'; 
 
-// For animation effects
 interface AnimatedElementProps {
   children: React.ReactNode;
   delay?: number;
@@ -62,25 +62,21 @@ const FadeInWhenVisible: React.FC<AnimatedElementProps> = ({
   );
 };
 
-
-// Update Event interface to include description property
 interface ExtendedEvent extends Event {
   description?: string;
 }
 
-// Add RunningClub interface (copy from ClubsPage.tsx or a shared types file)
 interface RunningClub {
   id: string;
   name: string;
   location: string;
   description: string;
-  skill_level: string; // 'beginner', 'intermediate', 'advanced', 'all'
+  skill_level: string;
   logo_url?: string;
   meeting_times: string[];
   membership_fee: string;
   group_size: string;
 }
-
 
 export default function HomePage() {
   const { data: events = [] } = useQuery<ExtendedEvent[]>({
@@ -88,7 +84,6 @@ export default function HomePage() {
     queryFn: getEvents,
   });
 
-  // Fetch club data
   const { data: clubs = [], isLoading: isLoadingClubs, error: clubsError } = useQuery<RunningClub[]>({
     queryKey: ['clubs'],
     queryFn: async () => {
@@ -101,81 +96,45 @@ export default function HomePage() {
     },
   });
   
-  // Get more upcoming events for smoother scrolling
+  // Sort upcoming events by date, show up to 8 for marquee
   const upcomingEvents = events
-    .sort((a: Event, b: Event) => compareDates(a.date, b.date))
-    .slice(0, 8); // Increased to show more events
+    .sort((a, b) => compareDates(a.date, b.date))
+    .slice(0, 8);
 
-  // Get a few clubs to display
   const featuredClubs = clubs.slice(0, 3);
 
-  // Calculate event counts per city and filter cities with more than 1 event
+  // Calculate event counts per city for major cities only
   const eventCountsByCity = MAJOR_CITIES.reduce((acc, city) => {
-    const count = events.filter((event: Event) => event.location.toLowerCase() === city.toLowerCase()).length;
-    if (count >= 1) { // Only include cities with more than equal to 1 event
+    const count = events.filter(event => event.location.toLowerCase() === city.toLowerCase()).length;
+    if (count > 0) {
       acc[city] = count;
     }
     return acc;
   }, {} as Record<string, number>);
 
-  // Get cities that have more than 1 event
-  const citiesWithEvents = Object.keys(eventCountsByCity);
+  // Top 6 cities sorted descending by event count
+  const topCities = Object.entries(eventCountsByCity)
+    .sort(([, countA], [, countB]) => countB - countA)
+    .slice(0, 6)
+    .map(([city]) => city);
 
   // Calculate event counts per category
   const eventCountsByCategory = PREDEFINED_EVENT_CATEGORIES.reduce((acc, category) => {
-    const count = events.filter((event: Event) => event.categories.includes(category)).length;
-    if (count > 0) { // Only include categories with events
+    const count = events.filter(event => event.categories.includes(category)).length;
+    if (count > 0) {
       acc[category] = count;
     }
     return acc;
   }, {} as Record<string, number>);
 
-  // Create duplicated array for seamless scrolling
+  // Duplicate events for smooth marquee scrolling
   const scrollingEvents = [...upcomingEvents, ...upcomingEvents];
 
   return (
     <PageContainer>
-      <div className="relative min-h-screen flex flex-col pt-16"> 
-        <div className="fixed inset-0 -z-10 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary-500/30 to-secondary-500/30 blur-3xl" />
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary-500/20 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-500/20 rounded-full -translate-x-1/2 translate-y-1/2 blur-3xl" />
-        </div>
+      <div className="relative min-h-screen flex flex-col pt-16">
 
-        {/* New Browse by City Section - Made more mobile friendly */}
-        <section id="browse-by-city" className="py-8 sm:py-12 px-4 sm:px-6 relative">
-          <FadeInWhenVisible>
-            <div className="max-w-7xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white tracking-tight mb-6 sm:mb-8 text-center">
-                Find Events in <span className="text-gradient">Your City</span>
-              </h2>
-              <div className="grid grid-cols-2 sm:flex sm:flex-nowrap gap-4 sm:gap-6 overflow-x-auto pb-6 sm:pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-primary-500/70 scrollbar-track-primary-500/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
-                {citiesWithEvents.map((city, index) => (
-                  <FadeInWhenVisible key={city} delay={index * 100} className="w-full sm:w-[180px] md:w-[220px] snap-start">
-                    <Link 
-                      to={`/events?location=${encodeURIComponent(city)}`} 
-                      className="group block relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-[4/5] sm:aspect-[3/4]"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
-                      {/* <div className={`absolute inset-0 bg-cover bg-center city-bg-placeholder-${index % 4}`}></div>  */}
-                      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${cityImages[city as keyof typeof cityImages]})`}}></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-20">
-                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1 group-hover:text-primary-300 transition-colors">
-                          {city}
-                        </h3>
-                        <p className="text-sm text-white/80 group-hover:text-white transition-colors">
-                          {eventCountsByCity[city]} Events →
-                        </p>
-                      </div>
-                    </Link>
-                  </FadeInWhenVisible>
-                ))}
-              </div>
-            </div>
-          </FadeInWhenVisible>
-        </section>
-
-        {/* Events Section - Auto-scrolling with improved mobile layout */}
+        {/* Events Section on Top */}
         <section className="py-8 sm:py-12 px-4 sm:px-6 relative overflow-hidden bg-gradient-to-b from-transparent to-gray-50/50 dark:to-gray-900/50">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-10 gap-4">
@@ -218,6 +177,34 @@ export default function HomePage() {
               </div>
             )}
           </div>
+        </section>
+
+        {/* Cities Section Below Events */}
+        <section id="browse-by-city" className="py-8 sm:py-12 px-4 sm:px-6 relative">
+          <FadeInWhenVisible>
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white tracking-tight mb-6 sm:mb-8 text-center">
+                Find Events in <span className="text-gradient">Your City</span>
+              </h2>
+              <div className="grid grid-cols-2 sm:flex sm:flex-nowrap gap-4 sm:gap-6 overflow-x-auto pb-6 sm:pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-primary-500/70 scrollbar-track-primary-500/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
+                {topCities.map((city, index) => (
+                  <FadeInWhenVisible key={city} delay={index * 100} className="w-full sm:w-[180px] md:w-[220px] snap-start">
+                    <Link 
+                      to={`/events?location=${encodeURIComponent(city)}`} 
+                      className="group block relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-[4/5] sm:aspect-[3/4]"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${cityImages[city as keyof typeof cityImages]})`}}></div>
+                      <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-20">
+                        <h3 className="text-white font-semibold text-lg sm:text-xl">{city}</h3>
+                        <p className="text-white text-sm sm:text-base">{eventCountsByCity[city]} upcoming event{eventCountsByCity[city] > 1 ? 's' : ''}</p>
+                      </div>
+                    </Link>
+                  </FadeInWhenVisible>
+                ))}
+              </div>
+            </div>
+          </FadeInWhenVisible>
         </section>
 
         {/* Clubs Section - Made responsive */}
@@ -310,7 +297,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section - Made responsive */}
-        <section className="py-8 sm:py-12 px-4 sm:px-6 relative mb-8 sm:mb-20">
+        {/* <section className="py-8 sm:py-12 px-4 sm:px-6 relative mb-8 sm:mb-20">
           <FadeInWhenVisible>
             <div className="max-w-7xl mx-auto">
               <div className="relative overflow-hidden rounded-3xl">
@@ -348,8 +335,9 @@ export default function HomePage() {
               </div>
             </div>
           </FadeInWhenVisible>
-        </section>
+        </section> */}
+        
       </div>
     </PageContainer>
-  )
+  );
 }

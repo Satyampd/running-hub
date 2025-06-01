@@ -11,7 +11,7 @@ import { cityImages, PREDEFINED_EVENT_CATEGORIES, MAJOR_CITIES } from '../config
 import EventCard from '../components/EventCard';
 import ClubCard from '../components/ClubCard'; 
 import api from '../services/api'; 
-import { RunIcon } from '../components/Icons'; 
+// import { RunIcon } from '../components/Icons'; 
 
 interface AnimatedElementProps {
   children: React.ReactNode;

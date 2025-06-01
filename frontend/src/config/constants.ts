@@ -8,17 +8,46 @@
  * A list of major cities in India, primarily used for location inputs and filters.
  */
 export const MAJOR_CITIES: string[] = [
-  'Mumbai', 'Delhi NCR', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad',
+  'Mumbai', 'Delhi', 'Gurugram', 'Noida', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad',
   'Jaipur', 'Surat', 'Lucknow', 'Kanpur', 'Nagpur', 'Indore', 'Thane', 'Bhopal',
   'Visakhapatnam', 'Patna', 'Vadodara', 'Ghaziabad', 'Ludhiana', 'Agra', 'Nashik',
 ];
+
+
+export const cityImages = {
+  "Hyderabad": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Hyderabad.jpeg",
+  "Mumbai": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Mumbai-1.jpeg",
+  "Delhi": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Delhi.jpeg",
+  "Gurugram": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Gurugram.jpeg",
+  "Noida": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Noida.jpeg",
+  "Bangalore": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Bangalore.jpeg",
+  "Chennai": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Chennai.jpeg",
+  "Kolkata": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Kolkata.jpeg",
+  "Pune": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Pune.jpeg",
+  "Ahmedabad": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Ahmedabad.jpeg",
+  "Jaipur": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Jaipur.jpeg",
+  "Surat": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Surat.jpeg",
+  "Lucknow": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Lucknow.jpeg",
+  "Kanpur": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Kanpur.jpeg",
+  "Nagpur": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Nagpur.jpeg",
+  "Indore": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Indore.jpeg",
+  "Thane": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Thane.png",
+  "Bhopal": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Bhopal.jpeg",
+  "Visakhapatnam": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Visakhapatnam.jpeg",
+  "Patna": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Patna.jpeg",
+  "Vadodara": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Vadodara.jpeg",
+  "Ghaziabad": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Ghaziabad.jpeg",
+  "Ludhiana": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Ludhiana.jpeg",
+  "Agra": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Agra.jpeg",
+  "Nashik": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Nashik.jpeg"
+};
 
 /**
  * Predefined categories for running events.
  * Used in event submission forms and filter options.
  */
 export const PREDEFINED_EVENT_CATEGORIES: string[] = [
-  'Marathon', 'Half Marathon', '10K', '5K', '10 Miles', 'Couple Run', 'Trail Run', 'Ultra Marathon',
+  'Marathon', 'Half Marathon', '10K', '5K', '15K',  '10 Miles', 'Couple Run', 'Trail Run', 'Ultra Marathon',
   'Fun Run', 'Virtual Run', 'Charity Run', 'Relay Race', 'Kids Run'
 ];
 

@@ -1,0 +1,653 @@
+2025-06-01 00:05:42,059 - app.api.routes - ERROR - Error getting clubs: (psycopg2.OperationalError) could not receive data from server: No route to host
+SSL SYSCALL error: No route to host
+
+[SQL: SELECT clubs.id AS clubs_id, clubs.name AS clubs_name, clubs.location AS clubs_location, clubs.address AS clubs_address, clubs.description AS clubs_description, clubs.established_year AS clubs_established_year, clubs.meeting_times AS clubs_meeting_times, clubs.contact_email AS clubs_contact_email, clubs.contact_phone AS clubs_contact_phone, clubs.website_url AS clubs_website_url, clubs.social_media AS clubs_social_media, clubs.membership_fee AS clubs_membership_fee, clubs.skill_level AS clubs_skill_level, clubs.typical_routes AS clubs_typical_routes, clubs.group_size AS clubs_group_size, clubs.logo_url AS clubs_logo_url, clubs.photos AS clubs_photos, clubs.amenities AS clubs_amenities 
+FROM clubs]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: could not receive data from server: No route to host
+SSL SYSCALL error: No route to host
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/api/routes.py", line 97, in get_clubs
+    clubs = db.query(ClubModel).all()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not receive data from server: No route to host
+SSL SYSCALL error: No route to host
+
+[SQL: SELECT clubs.id AS clubs_id, clubs.name AS clubs_name, clubs.location AS clubs_location, clubs.address AS clubs_address, clubs.description AS clubs_description, clubs.established_year AS clubs_established_year, clubs.meeting_times AS clubs_meeting_times, clubs.contact_email AS clubs_contact_email, clubs.contact_phone AS clubs_contact_phone, clubs.website_url AS clubs_website_url, clubs.social_media AS clubs_social_media, clubs.membership_fee AS clubs_membership_fee, clubs.skill_level AS clubs_skill_level, clubs.typical_routes AS clubs_typical_routes, clubs.group_size AS clubs_group_size, clubs.logo_url AS clubs_logo_url, clubs.photos AS clubs_photos, clubs.amenities AS clubs_amenities 
+FROM clubs]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-01 00:05:42,065 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 00:05:42,070 - app.api.routes - ERROR - Error getting events: (psycopg2.OperationalError) could not translate host name "ep-small-unit-a1h4gsi7-pooler.ap-southeast-1.aws.neon.tech" to address: nodename nor servname provided, or not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 3292, in raw_connection
+    return self.pool.connect()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 452, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 1269, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 722, in checkout
+    rec._checkin_failed(err, _fairy_was_created=False)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 719, in checkout
+    dbapi_connection = rec.get_connection()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 868, in get_connection
+    self.__connect()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 903, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 898, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/create.py", line 637, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 616, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "ep-small-unit-a1h4gsi7-pooler.ap-southeast-1.aws.neon.tech" to address: nodename nor servname provided, or not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/api/routes.py", line 37, in get_events
+    events = db.query(EventModel).all()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2180, in _execute_internal
+    conn = self._connection_for_bind(bind)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2047, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+  File "<string>", line 2, in _connection_for_bind
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1143, in _connection_for_bind
+    conn = bind.connect()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 3268, in connect
+    return self._connection_cls(self)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 147, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2430, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 3292, in raw_connection
+    return self.pool.connect()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 452, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 1269, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 722, in checkout
+    rec._checkin_failed(err, _fairy_was_created=False)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 719, in checkout
+    dbapi_connection = rec.get_connection()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 868, in get_connection
+    self.__connect()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 903, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 898, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/create.py", line 637, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 616, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "ep-small-unit-a1h4gsi7-pooler.ap-southeast-1.aws.neon.tech" to address: nodename nor servname provided, or not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-01 09:39:33,919 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 09:39:35,076 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 09:39:35,084 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 09:39:35,807 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 09:53:50,005 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 09:53:51,125 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 09:53:51,133 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 09:53:51,134 - app.api.routes - ERROR - Error getting clubs: (psycopg2.OperationalError) SSL SYSCALL error: EOF detected
+
+[SQL: SELECT clubs.id AS clubs_id, clubs.name AS clubs_name, clubs.location AS clubs_location, clubs.address AS clubs_address, clubs.description AS clubs_description, clubs.established_year AS clubs_established_year, clubs.meeting_times AS clubs_meeting_times, clubs.contact_email AS clubs_contact_email, clubs.contact_phone AS clubs_contact_phone, clubs.website_url AS clubs_website_url, clubs.social_media AS clubs_social_media, clubs.membership_fee AS clubs_membership_fee, clubs.skill_level AS clubs_skill_level, clubs.typical_routes AS clubs_typical_routes, clubs.group_size AS clubs_group_size, clubs.logo_url AS clubs_logo_url, clubs.photos AS clubs_photos, clubs.amenities AS clubs_amenities 
+FROM clubs]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: SSL SYSCALL error: EOF detected
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/api/routes.py", line 97, in get_clubs
+    clubs = db.query(ClubModel).all()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL SYSCALL error: EOF detected
+
+[SQL: SELECT clubs.id AS clubs_id, clubs.name AS clubs_name, clubs.location AS clubs_location, clubs.address AS clubs_address, clubs.description AS clubs_description, clubs.established_year AS clubs_established_year, clubs.meeting_times AS clubs_meeting_times, clubs.contact_email AS clubs_contact_email, clubs.contact_phone AS clubs_contact_phone, clubs.website_url AS clubs_website_url, clubs.social_media AS clubs_social_media, clubs.membership_fee AS clubs_membership_fee, clubs.skill_level AS clubs_skill_level, clubs.typical_routes AS clubs_typical_routes, clubs.group_size AS clubs_group_size, clubs.logo_url AS clubs_logo_url, clubs.photos AS clubs_photos, clubs.amenities AS clubs_amenities 
+FROM clubs]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-01 09:54:54,976 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 09:54:55,577 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 10:02:11,970 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 10:02:12,927 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 10:02:15,864 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 10:02:16,445 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 10:02:16,447 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 10:02:16,448 - app.api.routes - ERROR - Error getting clubs: (psycopg2.OperationalError) SSL SYSCALL error: EOF detected
+
+[SQL: SELECT clubs.id AS clubs_id, clubs.name AS clubs_name, clubs.location AS clubs_location, clubs.address AS clubs_address, clubs.description AS clubs_description, clubs.established_year AS clubs_established_year, clubs.meeting_times AS clubs_meeting_times, clubs.contact_email AS clubs_contact_email, clubs.contact_phone AS clubs_contact_phone, clubs.website_url AS clubs_website_url, clubs.social_media AS clubs_social_media, clubs.membership_fee AS clubs_membership_fee, clubs.skill_level AS clubs_skill_level, clubs.typical_routes AS clubs_typical_routes, clubs.group_size AS clubs_group_size, clubs.logo_url AS clubs_logo_url, clubs.photos AS clubs_photos, clubs.amenities AS clubs_amenities 
+FROM clubs]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: SSL SYSCALL error: EOF detected
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/api/routes.py", line 97, in get_clubs
+    clubs = db.query(ClubModel).all()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL SYSCALL error: EOF detected
+
+[SQL: SELECT clubs.id AS clubs_id, clubs.name AS clubs_name, clubs.location AS clubs_location, clubs.address AS clubs_address, clubs.description AS clubs_description, clubs.established_year AS clubs_established_year, clubs.meeting_times AS clubs_meeting_times, clubs.contact_email AS clubs_contact_email, clubs.contact_phone AS clubs_contact_phone, clubs.website_url AS clubs_website_url, clubs.social_media AS clubs_social_media, clubs.membership_fee AS clubs_membership_fee, clubs.skill_level AS clubs_skill_level, clubs.typical_routes AS clubs_typical_routes, clubs.group_size AS clubs_group_size, clubs.logo_url AS clubs_logo_url, clubs.photos AS clubs_photos, clubs.amenities AS clubs_amenities 
+FROM clubs]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-01 10:02:18,460 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 10:02:19,056 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 10:02:41,052 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 10:02:41,785 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 10:02:41,786 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 10:02:42,410 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 10:04:54,253 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 10:04:54,426 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 10:04:54,427 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 10:04:54,572 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 10:11:50,334 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 10:11:50,809 - app.api.routes - ERROR - Error getting events: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified 
+FROM events]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/api/routes.py", line 37, in get_events
+    events = db.query(EventModel).all()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified 
+FROM events]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-01 10:11:50,813 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 10:11:51,875 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 10:11:52,195 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 10:11:52,821 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 10:11:52,903 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 10:11:53,521 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 10:16:50,118 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 10:16:50,308 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 10:16:50,331 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 10:16:50,477 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 11:02:19,135 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 11:02:19,151 - app.api.routes - ERROR - Error getting events: (psycopg2.OperationalError) SSL SYSCALL error: EOF detected
+
+[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified 
+FROM events]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: SSL SYSCALL error: EOF detected
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/api/routes.py", line 37, in get_events
+    events = db.query(EventModel).all()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL SYSCALL error: EOF detected
+
+[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified 
+FROM events]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-01 11:02:19,152 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 11:02:19,925 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 11:02:25,127 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 11:02:25,732 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 11:19:09,130 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 11:19:10,176 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 11:19:10,182 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 11:19:10,182 - app.api.routes - ERROR - Error getting clubs: (psycopg2.OperationalError) SSL SYSCALL error: EOF detected
+
+[SQL: SELECT clubs.id AS clubs_id, clubs.name AS clubs_name, clubs.location AS clubs_location, clubs.address AS clubs_address, clubs.description AS clubs_description, clubs.established_year AS clubs_established_year, clubs.meeting_times AS clubs_meeting_times, clubs.contact_email AS clubs_contact_email, clubs.contact_phone AS clubs_contact_phone, clubs.website_url AS clubs_website_url, clubs.social_media AS clubs_social_media, clubs.membership_fee AS clubs_membership_fee, clubs.skill_level AS clubs_skill_level, clubs.typical_routes AS clubs_typical_routes, clubs.group_size AS clubs_group_size, clubs.logo_url AS clubs_logo_url, clubs.photos AS clubs_photos, clubs.amenities AS clubs_amenities 
+FROM clubs]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: SSL SYSCALL error: EOF detected
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/api/routes.py", line 97, in get_clubs
+    clubs = db.query(ClubModel).all()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL SYSCALL error: EOF detected
+
+[SQL: SELECT clubs.id AS clubs_id, clubs.name AS clubs_name, clubs.location AS clubs_location, clubs.address AS clubs_address, clubs.description AS clubs_description, clubs.established_year AS clubs_established_year, clubs.meeting_times AS clubs_meeting_times, clubs.contact_email AS clubs_contact_email, clubs.contact_phone AS clubs_contact_phone, clubs.website_url AS clubs_website_url, clubs.social_media AS clubs_social_media, clubs.membership_fee AS clubs_membership_fee, clubs.skill_level AS clubs_skill_level, clubs.typical_routes AS clubs_typical_routes, clubs.group_size AS clubs_group_size, clubs.logo_url AS clubs_logo_url, clubs.photos AS clubs_photos, clubs.amenities AS clubs_amenities 
+FROM clubs]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-01 11:35:29,452 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 11:35:30,526 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 11:35:58,460 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 11:35:59,091 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 11:36:03,333 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 11:36:03,965 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 11:36:03,967 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 11:36:04,123 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 11:36:07,721 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 11:36:07,869 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 11:36:07,872 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 11:36:08,018 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 11:36:10,891 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 11:36:11,078 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 11:36:11,081 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 11:36:11,233 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 11:38:18,083 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 11:38:18,351 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 11:38:18,363 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 11:38:18,512 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 12:07:47,631 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 12:07:47,659 - app.api.routes - ERROR - Error getting events: (psycopg2.DatabaseError) could not receive data from server: Can't assign requested address
+SSL SYSCALL error: Can't assign requested address
+
+[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified 
+FROM events]
+(Background on this error at: https://sqlalche.me/e/20/4xp6)
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.DatabaseError: could not receive data from server: Can't assign requested address
+SSL SYSCALL error: Can't assign requested address
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/api/routes.py", line 37, in get_events
+    events = db.query(EventModel).all()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DatabaseError: (psycopg2.DatabaseError) could not receive data from server: Can't assign requested address
+SSL SYSCALL error: Can't assign requested address
+
+[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified 
+FROM events]
+(Background on this error at: https://sqlalche.me/e/20/4xp6)
+2025-06-01 12:07:47,662 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 12:07:53,106 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 12:17:33,733 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 12:17:37,519 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 12:17:37,528 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 12:17:38,638 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 12:17:57,185 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 12:17:57,188 - app.api.routes - ERROR - Error getting events: (psycopg2.DatabaseError) could not receive data from server: Can't assign requested address
+SSL SYSCALL error: Can't assign requested address
+
+[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified 
+FROM events]
+(Background on this error at: https://sqlalche.me/e/20/4xp6)
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.DatabaseError: could not receive data from server: Can't assign requested address
+SSL SYSCALL error: Can't assign requested address
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/api/routes.py", line 37, in get_events
+    events = db.query(EventModel).all()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DatabaseError: (psycopg2.DatabaseError) could not receive data from server: Can't assign requested address
+SSL SYSCALL error: Can't assign requested address
+
+[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified 
+FROM events]
+(Background on this error at: https://sqlalche.me/e/20/4xp6)
+2025-06-01 12:17:57,191 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 12:17:57,816 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 16:39:45,216 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 16:39:45,864 - app.api.routes - INFO - Retrieved 6 events from database.
+2025-06-01 16:39:45,872 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 16:39:46,483 - app.api.routes - INFO - Retrieved 1 clubs from database.
+2025-06-01 17:17:47,456 - app.api.routes - INFO - GET /events request from 127.0.0.1
+2025-06-01 17:17:47,564 - app.api.routes - ERROR - Error getting events: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified 
+FROM events]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/api/routes.py", line 37, in get_events
+    events = db.query(EventModel).all()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified 
+FROM events]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-01 17:17:47,579 - app.api.routes - INFO - GET /clubs request from 127.0.0.1
+2025-06-01 17:17:48,367 - app.api.routes - INFO - Retrieved 1 clubs from database.

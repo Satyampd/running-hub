@@ -6,11 +6,11 @@ import {  compareDates } from '../utils/dateUtils';
 import '../styles/custom.css';
 import PageContainer from '../components/PageContainer';
 import { useEffect, useRef, useState } from 'react';
-import { RunIcon } from '../components/Icons'; // FilterIcon might be removed if not used elsewhere
-import {  PREDEFINED_EVENT_CATEGORIES, MAJOR_CITIES } from '../config/constants'; // Added MAJOR_CITIES
+import { RunIcon } from '../components/Icons'; 
+import {  cityImages, PREDEFINED_EVENT_CATEGORIES, MAJOR_CITIES } from '../config/constants'; // Added MAJOR_CITIES
 import EventCard from '../components/EventCard';
-import ClubCard from '../components/ClubCard'; // Import the ClubCard component
-import api from '../services/api'; // Import your API service to fetch clubs
+import ClubCard from '../components/ClubCard'; 
+import api from '../services/api'; 
 
 // For animation effects
 interface AnimatedElementProps {
@@ -62,6 +62,7 @@ const FadeInWhenVisible: React.FC<AnimatedElementProps> = ({
   );
 };
 
+
 // Update Event interface to include description property
 interface ExtendedEvent extends Event {
   description?: string;
@@ -111,7 +112,7 @@ export default function HomePage() {
   // Calculate event counts per city and filter cities with more than 1 event
   const eventCountsByCity = MAJOR_CITIES.reduce((acc, city) => {
     const count = events.filter((event: Event) => event.location.toLowerCase() === city.toLowerCase()).length;
-    if (count >= 1) { // Only include cities with more than 1 event
+    if (count >= 1) { // Only include cities with more than equal to 1 event
       acc[city] = count;
     }
     return acc;
@@ -134,16 +135,12 @@ export default function HomePage() {
 
   return (
     <PageContainer>
-      <div className="relative min-h-screen flex flex-col pt-16"> {/* Added pt-16 for nav space */}
-        {/* Background Elements - Kept for overall page styling */}
+      <div className="relative min-h-screen flex flex-col pt-16"> 
         <div className="fixed inset-0 -z-10 pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary-500/30 to-secondary-500/30 blur-3xl" />
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary-500/20 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-500/20 rounded-full -translate-x-1/2 translate-y-1/2 blur-3xl" />
         </div>
-        
-        {/* Removed Hero Section */}
-        {/* Removed Quote Section */}
 
         {/* New Browse by City Section - Made more mobile friendly */}
         <section id="browse-by-city" className="py-8 sm:py-12 px-4 sm:px-6 relative">
@@ -160,7 +157,8 @@ export default function HomePage() {
                       className="group block relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-[4/5] sm:aspect-[3/4]"
                     >
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
-                      <div className={`absolute inset-0 bg-cover bg-center city-bg-placeholder-${index % 4}`}></div> 
+                      {/* <div className={`absolute inset-0 bg-cover bg-center city-bg-placeholder-${index % 4}`}></div>  */}
+                      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${cityImages[city as keyof typeof cityImages]})`}}></div>
                       <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-20">
                         <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1 group-hover:text-primary-300 transition-colors">
                           {city}

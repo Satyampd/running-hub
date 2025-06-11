@@ -7,7 +7,7 @@ export default function AboutPage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
-              About Running Hub
+              About Ranzaar
             </h1>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
               India's premier platform for discovering running events across the country
@@ -18,7 +18,7 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-semibold mb-6 text-gray-800 dark:text-white">Our Mission</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                At Running Hub, we're passionate about building India's most comprehensive platform for running enthusiasts. Our mission is to connect runners with events that match their preferences and goals.
+                At Ranzaar, we're passionate about building India's most comprehensive platform for running enthusiasts. Our mission is to connect runners with events that match their preferences and goals.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300">
                 We believe that running is not just a sport but a transformative experience that builds physical strength, mental resilience, and community connections. By making events more discoverable, we aim to help more people embrace the joy of running.
@@ -26,9 +26,9 @@ export default function AboutPage() {
             </div>
             <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg rounded-3xl p-8 shadow-lg hover-card-animation hover-shine hover-border-pulse">
               <blockquote className="text-xl italic text-gray-800 dark:text-gray-200">
-                "Running has given me a sense of achievement, community, and well-being. My vision for Running Hub is to share this gift with as many people as possible across India."
+                "Running has given me a sense of achievement, community, and well-being. My vision for Ranzaar is to share this gift with as many people as possible across India."
               </blockquote>
-              <p className="mt-4 font-semibold text-gray-900 dark:text-gray-100">— Founder, Running Hub</p>
+              <p className="mt-4 font-semibold text-gray-900 dark:text-gray-100">— Founder, Ranzaar</p>
             </div>
           </div>
           
@@ -77,13 +77,13 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-semibold mb-12 text-center text-gray-800 dark:text-white">Our Team</h2>
             <p className="text-xl text-center text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-16">
-              Running Hub is built by a small team of passionate runners and developers who believe in the power of running to transform lives.
+              Ranzaar is built by a small team of passionate runners and developers who believe in the power of running to transform lives.
             </p>
             
             <div className="flex justify-center">
               <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg rounded-3xl p-8 shadow-lg hover-card-animation hover-shine hover-border-pulse max-w-lg">
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                  We're always looking for ways to improve Running Hub. If you have suggestions, feedback, or would like to partner with us, we'd love to hear from you!
+                  We're always looking for ways to improve Ranzaar. If you have suggestions, feedback, or would like to partner with us, we'd love to hear from you!
                 </p>
                 <div className="flex justify-center">
                   <a href="/contact" className="btn btn-primary text-lg px-8 py-4 rounded-full hover:scale-105 transition-transform">

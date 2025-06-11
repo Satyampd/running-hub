@@ -1,0 +1,237 @@
+2025-06-04 12:03:39,789 - app.main - INFO - Pinging URL: https://running-events-hub-api.onrender.com/api/events
+2025-06-04 12:03:44,845 - app.main - ERROR - Unexpected error during ping: 
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    raise exc
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_backends/auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_backends/anyio.py", line 122, in connect_tcp
+    stream._raw_socket.setsockopt(*option)  # type: ignore[attr-defined] # pragma: no cover
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/main.py", line 36, in scheduled_ping_job
+    response = await client.get(EVENTS_URL)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1757, in get
+    return await self.request(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout
+2025-06-04 12:17:39,827 - app.main - INFO - Pinging URL: https://running-events-hub-api.onrender.com/api/events
+2025-06-04 12:17:44,847 - app.main - ERROR - Unexpected error during ping: 
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    raise exc
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_backends/auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_backends/anyio.py", line 122, in connect_tcp
+    stream._raw_socket.setsockopt(*option)  # type: ignore[attr-defined] # pragma: no cover
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/main.py", line 36, in scheduled_ping_job
+    response = await client.get(EVENTS_URL)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1757, in get
+    return await self.request(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout
+2025-06-04 12:31:39,771 - app.main - INFO - Pinging URL: https://running-events-hub-api.onrender.com/api/events
+2025-06-04 12:31:40,851 - app.main - ERROR - HTTP error during ping: 500 - {"detail":"(psycopg2.OperationalError) SSL SYSCALL error: EOF detected\n\n[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified \nFROM events]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"}
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/main.py", line 37, in scheduled_ping_job
+    response.raise_for_status()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_models.py", line 758, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '500 Internal Server Error' for url 'https://running-events-hub-api.onrender.com/api/events'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-06-04 13:46:37,304 - app.main - INFO - Pinging URL: https://running-events-hub-api.onrender.com/api/events
+2025-06-04 13:46:38,503 - app.main - ERROR - HTTP error during ping: 500 - {"detail":"(psycopg2.OperationalError) SSL SYSCALL error: EOF detected\n\n[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified \nFROM events]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"}
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/main.py", line 37, in scheduled_ping_job
+    response.raise_for_status()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_models.py", line 758, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '500 Internal Server Error' for url 'https://running-events-hub-api.onrender.com/api/events'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-06-04 13:55:39,772 - app.main - INFO - Pinging URL: https://running-events-hub-api.onrender.com/api/events
+2025-06-04 13:55:42,055 - app.main - INFO - Ping successful. Status: 200, Response: [{"title":"Amlai Marathon","date":"31 May 2025","location":"Amlai","address":" ","categories":["Marathon","Half Marathon","5K"],"price":"999","url":"https://bitsdroid.com","source":"User Submitted","d...
+2025-06-04 16:06:05,918 - app.main - INFO - Pinging URL: https://running-events-hub-api.onrender.com/api/events
+2025-06-04 16:06:10,967 - app.main - ERROR - Unexpected error during ping: 
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    raise exc
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_backends/auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_backends/anyio.py", line 122, in connect_tcp
+    stream._raw_socket.setsockopt(*option)  # type: ignore[attr-defined] # pragma: no cover
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/main.py", line 36, in scheduled_ping_job
+    response = await client.get(EVENTS_URL)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1757, in get
+    return await self.request(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout
+2025-06-04 16:15:39,769 - app.main - INFO - Pinging URL: https://running-events-hub-api.onrender.com/api/events
+2025-06-04 16:15:42,626 - app.main - INFO - Ping successful. Status: 200, Response: [{"title":"Amlai Marathon","date":"31 May 2025","location":"Amlai","address":" ","categories":["Marathon","Half Marathon","5K"],"price":"999","url":"https://bitsdroid.com","source":"User Submitted","d...
+2025-06-04 16:29:39,769 - app.main - INFO - Pinging URL: https://running-events-hub-api.onrender.com/api/events
+2025-06-04 16:29:40,297 - app.main - ERROR - HTTP error during ping: 500 - {"detail":"(psycopg2.OperationalError) SSL SYSCALL error: EOF detected\n\n[SQL: SELECT events.id AS events_id, events.title AS events_title, events.date AS events_date, events.location AS events_location, events.address AS events_address, events.categories AS events_categories, events.price AS events_price, events.url AS events_url, events.source AS events_source, events.description AS events_description, events.registration_closes AS events_registration_closes, events.scraped_at AS events_scraped_at, events.image_url AS events_image_url, events.created_at AS events_created_at, events.updated_at AS events_updated_at, events.is_verified AS events_is_verified \nFROM events]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"}
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/main.py", line 37, in scheduled_ping_job
+    response.raise_for_status()
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_models.py", line 758, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '500 Internal Server Error' for url 'https://running-events-hub-api.onrender.com/api/events'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-06-04 16:43:39,771 - app.main - INFO - Pinging URL: https://running-events-hub-api.onrender.com/api/events
+2025-06-04 16:43:44,806 - app.main - ERROR - Unexpected error during ping: 
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    raise exc
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_backends/auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_backends/anyio.py", line 122, in connect_tcp
+    stream._raw_socket.setsockopt(*option)  # type: ignore[attr-defined] # pragma: no cover
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/app/main.py", line 36, in scheduled_ping_job
+    response = await client.get(EVENTS_URL)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1757, in get
+    return await self.request(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/Users/satyamtiwari/running-hub/running-hub/backend/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout
+2025-06-04 19:22:34,931 - app.main - INFO - Pinging URL: https://running-events-hub-api.onrender.com/api/events
+2025-06-04 19:22:37,309 - app.main - INFO - Ping successful. Status: 200, Response: [{"title":"Amlai Marathon","date":"31 May 2025","location":"Amlai","address":" ","categories":["Marathon","Half Marathon","5K"],"price":"999","url":"https://bitsdroid.com","source":"User Submitted","d...

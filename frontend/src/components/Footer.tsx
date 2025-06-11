@@ -22,7 +22,7 @@ export default function Footer() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 grid place-items-center text-white font-bold text-xl">
                   RH
                 </div>
-                <span className="text-xl font-bold text-gradient">Running Hub</span>
+                <span className="text-xl font-bold text-gradient">Ranzaar</span>
               </Link>
               <p className="mt-4 text-gray-600 dark:text-gray-400">
                 India's premier platform for discovering running events across the country. Find your next marathon, trail run, or fun run.
@@ -126,7 +126,7 @@ export default function Footer() {
           {/* Bottom copyright section */}
           <div className="mt-12 pt-8 border-t border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} Running Hub. All rights reserved.
+              &copy; {new Date().getFullYear()} Ranzaar. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <a href="#" className="text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-200">

@@ -59,8 +59,11 @@ export default function MainLayout() {
                   to="/" 
                   className="flex items-center gap-2 text-xl font-bold transition-colors duration-200"
                 >
-                  <span className="inline-block w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 grid place-items-center text-white font-bold text-xl">RH</span>
-                  <span className="text-gradient text-xl font-bold">Running Hub</span>
+                  {/* <span className="inline-block w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 grid place-items-center text-white font-bold text-xl">R</span> */}
+                  <span className="inline-block w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 grid place-items-center">
+                    <img src="/RunzaarIcon.png" alt="Icon" className="w-6 h-6" />
+                  </span>
+                  <span className="text-gradient text-xl font-bold">Ranzaar</span>
                 </Link>
               </div>
 

@@ -193,8 +193,8 @@ export default function ContactPage() {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-900 dark:text-white">Email</p>
-                    <a href="mailto:info@runninghub.in" className="text-primary-600 dark:text-primary-400 hover:underline">
-                      info@runninghub.in
+                    <a href="mailto:runzaarwebsite@gmail.com" className="text-primary-600 dark:text-primary-400 hover:underline">
+                      runzaarwebsite@gmail.com
                     </a>
                   </div>
                 </div>
@@ -211,7 +211,7 @@ export default function ContactPage() {
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-900 dark:text-white">Location</p>
                     <p className="text-gray-700 dark:text-gray-300">
-                      Bengaluru, Karnataka<br />
+                      Noida, Uttar Pradesh<br />
                       India
                     </p>
                   </div>

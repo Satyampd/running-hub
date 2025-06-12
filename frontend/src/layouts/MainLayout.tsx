@@ -63,7 +63,7 @@ export default function MainLayout() {
                   <span className="inline-block w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 grid place-items-center">
                     <img src="/RunzaarIcon.png" alt="Icon" className="w-6 h-6" />
                   </span>
-                  <span className="text-gradient text-xl font-bold">Ranzaar</span>
+                  <span className="text-gradient text-xl font-bold">Runzaar</span>
                 </Link>
               </div>
 

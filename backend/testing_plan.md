@@ -1,4 +1,4 @@
-**Testing Plan: Ranzaar Backend**
+**Testing Plan: Runzaar Backend**
 
 **1. Unit Tests:**
 

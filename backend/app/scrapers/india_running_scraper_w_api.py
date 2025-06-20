@@ -79,7 +79,7 @@ class IndiaRunningAPI(BaseScraper): # Inherit from BaseScraper
                         "source": source_name, # Dynamic source name
                         "description": event_data.get("aboutRace", [{}])[0].get("content", "No description available").strip(),
                         "registration_closes": self._parse_date(event_data.get("registrationDate", {}).get("end")), # Assuming similar structure
-                        "image_url": event_data.get("eventImage", {}).get("url") # Extract image URL if present
+                        "photos": event_data.get("eventImage", {}).get("url") # Extract image URL if present
                     }
                     all_events.append(event)
                     logger.debug(f"Successfully processed event: {event['title']}")

@@ -17,7 +17,7 @@ class Event(Base):
     description = Column(String, nullable=True)
     registration_closes = Column(String, nullable=True)
     scraped_at = Column(String, nullable=True)
-    image_url = Column(String, nullable=True)
+    photos = Column(ARRAY(String), server_default='{}', nullable=True)
     created_at = Column(DateTime, nullable=False, default=func.now())
     updated_at = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
     is_verified = Column(Boolean, nullable=False, default=False)

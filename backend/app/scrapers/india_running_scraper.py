@@ -111,7 +111,7 @@ class IndiaRunningScraper(BaseScraper):
                         'source': source_name, # Use dynamic source name
                         'description': description,
                         'registration_closes': reg_closing,
-                        'image_url': None # Placeholder, fetch if available/needed
+                        'photos': None # Placeholder, fetch if available/needed
                     }
                     events.append(event_data)
                     logger.info(f"Successfully scraped event '{title}' from {event_url}")

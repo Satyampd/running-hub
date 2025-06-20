@@ -36,3 +36,4 @@ pydantic[email]
 apscheduler
 httpx
 schedule
+supabase

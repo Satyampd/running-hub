@@ -16,7 +16,7 @@ class EventBase(BaseModel):
     registration_closes: Optional[str] = None
     scraped_at: Optional[str] = None
     is_verified: Optional[bool] = True
-    image_url: Optional[str] = None
+    photos: Optional[List[str]] = []
 
 class EventCreate(EventBase):
     pass

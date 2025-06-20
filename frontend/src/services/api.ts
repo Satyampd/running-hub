@@ -32,6 +32,14 @@ const api = axios.create({
   },
 })
 
+// Add API key to all requests
+api.interceptors.request.use((config) => {
+  const apiKey = import.meta.env.VITE_API_KEY || 'supersecretapikey'; // fallback for dev
+  config.headers = config.headers || {};
+  config.headers['X-API-KEY'] = apiKey;
+  return config;
+});
+
 export const getEvents = async (): Promise<Event[]> => {
   const response = await api.get('/events')
   return response.data

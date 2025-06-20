@@ -84,7 +84,7 @@ class CityWooferScraper(BaseScraper):
                                         'url': event_url,
                                         'source': source_name,
                                         'description': description.strip(),
-                                        'image_url': event_data.get('image_url') # Capture image URL
+                                        'photos': event_data.get('photos') # Capture image URL
                                     }
                                     
                                     # Add event if URL is unique to avoid duplicates from different city searches for same event

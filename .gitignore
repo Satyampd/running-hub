@@ -45,4 +45,4 @@ coverage.xml
 backend/.env
 *_events.json
 Temp Files/
-
+app.*

@@ -9,16 +9,23 @@ from app.models.club import Club as ClubModel
 from app.db.base import SessionLocal
 from app.api.scraping import router as scraping_router
 from app.core.logging_config import get_logger
+from app.core.deps import verify_api_key
+from app.api.routers.image_upload import router as image_upload_router
 
 import uuid
 
 logger = get_logger(__name__)
 
+router = APIRouter(dependencies=[Depends(verify_api_key)])
 router = APIRouter()
 
 # Include the scraping router
 router.include_router(scraping_router, prefix="/scrape", tags=["scraping"])
 logger.info("Scraping router included.")
+
+# Include the image upload router
+router.include_router(image_upload_router, prefix="/media", tags=["media"])
+logger.info("Image upload router included.")
 
 # Dependency
 def get_db():

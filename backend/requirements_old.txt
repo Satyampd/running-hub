@@ -34,4 +34,4 @@ httpx==0.27.2
 pydantic[email]
 apscheduler
 schedule
-supabase
+supabase==2.9.0

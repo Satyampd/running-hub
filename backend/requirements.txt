@@ -31,9 +31,8 @@ schedule==1.2.1
 python-dateutil>=2.8.2 
 rapidfuzz
 python-dateutil==2.9.0
-httpx
+httpx==0.27.2 
 pydantic[email]
 apscheduler
-httpx
 schedule
 supabase

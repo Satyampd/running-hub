@@ -5,13 +5,15 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import '../styles/custom.css'; // Ensure custom styles are imported
+import { MAJOR_CITIES } from '../config/constants'; // Corrected import path
+
 
 // --- CONSTANTS FOR CITIES, DAYS, AND TIMES ---
-const majorCities = [
-  'Mumbai', 'Delhi NCR', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad',
-  'Jaipur', 'Surat', 'Lucknow', 'Kanpur', 'Nagpur', 'Indore', 'Thane', 'Bhopal',
-  'Visakhapatnam', 'Patna', 'Vadodara', 'Ghaziabad', 'Ludhiana', 'Agra', 'Nashik',
-];
+// const majorCities = [
+//   'Mumbai', 'Delhi NCR', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad',
+//   'Jaipur', 'Surat', 'Lucknow', 'Kanpur', 'Nagpur', 'Indore', 'Thane', 'Bhopal',
+//   'Visakhapatnam', 'Patna', 'Vadodara', 'Ghaziabad', 'Ludhiana', 'Agra', 'Nashik',
+// ];
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -345,7 +347,7 @@ export default function ClubSubmissionForm({ onSuccess }: ClubSubmissionFormProp
             className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all shadow-inner"
           >
             <option value="">Select City *</option>
-            {majorCities.map(city => (
+            {MAJOR_CITIES.map(city => (
               <option key={city} value={city}>{city}</option>
             ))}
             <option value="Other">Other (Please specify)</option>

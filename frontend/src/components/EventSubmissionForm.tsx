@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import { formatDate } from '../utils/dateUtils'; 
+import { formatDate } from '../utils/dateUtils';
 import '../styles/custom.css'; // Ensure custom styles are imported
 import { MAJOR_CITIES, PREDEFINED_EVENT_CATEGORIES } from '../config/constants'; // Corrected import path
 
@@ -118,7 +118,7 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
     // This is mostly handled by the input method now, but good to keep filtering logic in mutation
     const validCategories = formData.categories.map(c => c.trim()).filter(c => c !== '');
     if (formData.categories.length > 0 && validCategories.length === 0) {
-        validationErrors.push("If categories are added, at least one must be valid (not empty).");
+      validationErrors.push("If categories are added, at least one must be valid (not empty).");
     }
 
     if (validationErrors.length > 0) {
@@ -131,7 +131,7 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
     if (selectedImages.length > 0) {
       setUploadingImages(true);
       setImageUploadProgress(Array(selectedImages.length).fill(0));
-      
+
       try {
         for (let i = 0; i < selectedImages.length; i++) {
           const file = selectedImages[i];
@@ -204,9 +204,9 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
       }));
       setOtherCategoryValue(''); // Clear input after adding
     } else if (formData.categories.includes(trimmedOtherCategory)) {
-        setError(`Category "${trimmedOtherCategory}" is already added.`);
+      setError(`Category "${trimmedOtherCategory}" is already added.`);
     } else if (!trimmedOtherCategory) {
-        setError("Custom category cannot be empty.");
+      setError("Custom category cannot be empty.");
     }
   };
 
@@ -221,18 +221,6 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
   return (
     // This div is the "card" for the form, NOT the whole page layout
     <div className="relative bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-6 md:p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
-      {/* {(uploadingImages || createEventMutation.isPending) && (
-        // Overlay for loading state, relative to its parent (the form card)
-        <div className="absolute inset-0 bg-white/50 dark:bg-gray-800/50 flex items-center justify-center z-50 rounded-2xl">
-          <div className="flex items-center space-x-2">
-            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-500"></div>
-            <span className="text-gray-600 dark:text-gray-300">
-              {uploadingImages ? 'Uploading images...' : 'Submitting event...'}
-            </span>
-          </div>
-        </div>
-      )} */}
-
       <form onSubmit={handleSubmit} className="space-y-6" noValidate>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Event Title <span className="text-red-500">*</span></label>
@@ -393,62 +381,73 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
               const files = Array.from(e.target.files || []).slice(0, 3);
               setSelectedImages(files);
             }}
-            className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"/>
+            className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100" />
+        </div>
+        {imageUploadProgress.length > 0 && (
+          <div className="mt-4 space-y-2">
+            {imageUploadProgress.map((progress, index) => (
+              <div key={index} className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+                <div
+                  className="bg-primary-500 h-2 rounded-full transition-all duration-500"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+            ))}
           </div>
-          <div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
-      <textarea
-        value={formData.description}
-        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-        rows={4}
-        className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all shadow-inner"
-        placeholder="Tell us about the event. Agenda, itinerary, inclusions, what to bring, etc."
-      />
+        )}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+          <textarea
+            value={formData.description}
+            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+            rows={4}
+            className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all shadow-inner"
+            placeholder="Tell us about the event. Agenda, itinerary, inclusions, what to bring, etc."
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Registration Closes</label>
+          <input
+            type="date"
+            value={formData.registration_closes}
+            onChange={(e) => setFormData({ ...formData, registration_closes: e.target.value })}
+            className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all shadow-inner"
+          />
+        </div>
+
+        {error && <p className="text-red-600 font-medium text-sm whitespace-pre-line">{error}</p>}
+        {success && <p className="text-green-600 font-medium text-sm">Event submitted successfully!</p>}
+
+        <button
+          type="submit"
+          disabled={uploadingImages || createEventMutation.isPending}
+          className={`w-full py-3 px-6 text-white font-semibold rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${uploadingImages || createEventMutation.isPending
+              ? 'bg-primary-300 cursor-not-allowed'
+              : 'bg-primary-500 hover:bg-primary-600 focus:ring-primary-500 dark:focus:ring-primary-400'
+            }`}
+        >
+          {uploadingImages || createEventMutation.isPending ? 'Submitting...' : 'Submit Event'}
+        </button>
+        {(uploadingImages || createEventMutation.isPending) && (
+          <div className="mt-2 flex items-center justify-center text-sm text-gray-600 dark:text-gray-300 space-x-2">
+            <svg
+              className="animate-spin h-4 w-4 text-primary-500"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"
+              />
+            </svg>
+            <span>{uploadingImages ? 'Uploading images...' : 'Submitting event...'}</span>
+          </div>
+        )}
+      </form>
     </div>
-
-    <div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Registration Closes</label>
-      <input
-        type="date"
-        value={formData.registration_closes}
-        onChange={(e) => setFormData({ ...formData, registration_closes: e.target.value })}
-        className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all shadow-inner"
-      />
-    </div>
-
-    {error && <p className="text-red-600 font-medium text-sm whitespace-pre-line">{error}</p>}
-    {success && <p className="text-green-600 font-medium text-sm">Event submitted successfully!</p>}
-
-    <button
-      type="submit"
-      disabled={uploadingImages || createEventMutation.isPending}
-      className={`w-full py-3 px-6 text-white font-semibold rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-        uploadingImages || createEventMutation.isPending
-          ? 'bg-primary-300 cursor-not-allowed'
-          : 'bg-primary-500 hover:bg-primary-600 focus:ring-primary-500 dark:focus:ring-primary-400'
-      }`}
-    >
-      {uploadingImages || createEventMutation.isPending ? 'Submitting...' : 'Submit Event'}
-    </button>
-    {(uploadingImages || createEventMutation.isPending) && (
-  <div className="mt-2 flex items-center justify-center text-sm text-gray-600 dark:text-gray-300 space-x-2">
-    <svg
-      className="animate-spin h-4 w-4 text-primary-500"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-      <path
-        className="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"
-      />
-    </svg>
-    <span>{uploadingImages ? 'Uploading images...' : 'Submitting event...'}</span>
-  </div>
-)}
-  </form>
-</div>
-);
+  );
 }

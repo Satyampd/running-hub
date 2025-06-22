@@ -24,3 +24,5 @@ export const animatedGlassCard = `${glassmorphismCardBase} ${cardHoverAnimations
 
 // Add comments to explain each constant and its purpose.
 // Ensure that the class strings are accurate and reflect the intended styles. 
+
+

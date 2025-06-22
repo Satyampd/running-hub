@@ -112,6 +112,7 @@ import { formatPrice } from '../utils/currencyUtils';
 
 interface ExtendedEvent extends Event {
   description?: string;
+  photos?: string[];
 }
 
 interface EventCardProps {
@@ -120,8 +121,8 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event, index = 0 }: EventCardProps) {
-  const imageUrl = useMemo(() => getRandomEventImage(), []);
-
+  // Use the first photo if available, otherwise fallback
+  const imageUrl = event.photos && event.photos.length > 0 ? event.photos[0] : getRandomEventImage();
   return (
     <article
       className={`${animatedGlassCard} group relative w-full h-auto min-h-[480px] md:h-[460px] flex flex-col rounded-2xl overflow-hidden`}
@@ -139,7 +140,12 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent dark:from-black/80" />
-
+        {/* Gallery indicator if multiple images */}
+        {event.photos && event.photos.length > 1 && (
+          <div className="absolute top-2 right-2 bg-white/80 dark:bg-gray-900/80 rounded-full px-3 py-1 text-xs text-gray-800 dark:text-gray-200 shadow">
+            +{event.photos.length}
+          </div>
+        )}
         {/* Date & Location */}
         <div className="absolute bottom-0 left-0 right-0 p-4">
           <div className="flex items-center space-x-2 text-white mb-2">

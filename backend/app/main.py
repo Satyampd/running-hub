@@ -16,14 +16,14 @@ logger = get_logger(__name__) # Use the new logger
 
 # CORS Origins
 ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://192.168.1.33:5173",
+    # "http://localhost:5173",
+    # "http://192.168.1.33:5173",
     "https://running-events-hub-frontend.onrender.com",
     "https://running-events-hub-api.onrender.com",
 ]
 
-if os.getenv("ALLOW_ALL_ORIGINS", "").lower() == "true":
-    ALLOWED_ORIGINS.append("*")
+# if os.getenv("ALLOW_ALL_ORIGINS", "").lower() == "true":
+#     ALLOWED_ORIGINS.append("*")
 
 # APScheduler setup
 scheduler = AsyncIOScheduler()

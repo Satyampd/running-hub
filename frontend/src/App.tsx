@@ -18,35 +18,6 @@ import AnalyticsWrapper from './components/AnalyticsWrapper'
 
 const queryClient = new QueryClient()
 
-// function App() {
-
-//   useAnalytics()
-//   return (
-//     <QueryClientProvider client={queryClient}>
-//       <ThemeProvider>
-//         <Router>
-//           <ScrollToTop /> 
-//           <Routes>
-//             <Route element={<MainLayout />}>
-//               <Route path="/" element={<HomePage />} />
-//               <Route path="/events" element={<EventsPage />} />
-//               <Route path="/events/:id" element={<EventDetailsPage />} />
-//               <Route path="/submit-event" element={<SubmitEvent />} />
-//               <Route path="/about" element={<AboutPage />} />
-//               <Route path="/terms" element={<TermsPage />} />
-//               <Route path="/contact" element={<ContactPage />} />
-//               <Route path="/clubs" element={<ClubsPage />} />
-//               <Route path="/clubs/:id" element={<ClubDetailPage />} />
-//               <Route path="/submit-club" element={<SubmitClub />} />
-//             </Route>
-//           </Routes>
-//         </Router>
-//       </ThemeProvider>
-//     </QueryClientProvider>
-//   )
-// }
-
-// export default App 
 
 function App() {
   return (

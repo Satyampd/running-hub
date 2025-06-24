@@ -2,7 +2,7 @@ from datetime import date, datetime, timedelta
 from fastapi import APIRouter, HTTPException, Depends, Request
 from typing import List
 from sqlalchemy.orm import Session
-from app.schemas.event import Event, EventCreate
+from app.schemas.event import Event, EventCreate, ShowEvent
 from app.models.event import Event as EventModel
 from app.schemas.club import Club, ClubCreate
 from app.models.club import Club as ClubModel
@@ -38,7 +38,7 @@ def get_db():
         db.close()
 
 
-@router.get("/events", response_model=List[Event])
+@router.get("/events", response_model=List[ShowEvent])
 async def get_events(request: Request, db: Session = Depends(get_db)):
     logger.info(f"GET /events request from {request.client.host}")
     try:
@@ -51,6 +51,10 @@ async def get_events(request: Request, db: Session = Depends(get_db)):
         for event in verified_events:
             # parse event.date string e.g. '9 Nov 2025'
             event_date = datetime.strptime(event.date, "%d %b %Y").date()
+
+            validated_event = ShowEvent.model_validate(event)
+            filtered_events.append(validated_event)
+
             if event_date >= today:
                 filtered_events.append(event)
 

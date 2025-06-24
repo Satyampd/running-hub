@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
 from datetime import datetime
 from uuid import UUID
@@ -28,3 +28,20 @@ class Event(EventBase):
 
     class Config:
         from_attributes = True 
+
+class ShowEvent(BaseModel):
+    id: UUID
+    title: str
+    date: str
+    location: str
+    address: str
+    categories: List[str]
+    price: str
+    url: str
+    description: Optional[str] = None
+    registration_closes: Optional[str] = None
+    photos: Optional[List[str]] = []
+
+    class Config:
+        from_attributes = True 
+        orm_mode = True  # Enable ORM mode for compatibility with SQLAlchemy models

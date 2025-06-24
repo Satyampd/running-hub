@@ -20,6 +20,8 @@ ALLOWED_ORIGINS = [
     "http://192.168.1.33:5173",
     "https://running-events-hub-frontend.onrender.com",
     "https://running-events-hub-api.onrender.com",
+    "https://runzaar.com",
+    "https://www.runzaar.com",
 ]
 
 # APScheduler setup

@@ -51,12 +51,10 @@ async def get_events(request: Request, db: Session = Depends(get_db)):
         for event in verified_events:
             # parse event.date string e.g. '9 Nov 2025'
             event_date = datetime.strptime(event.date, "%d %b %Y").date()
-
             validated_event = ShowEvent.model_validate(event)
-            filtered_events.append(validated_event)
 
             if event_date >= today:
-                filtered_events.append(event)
+                filtered_events.append(validated_event)
 
         return filtered_events
     except Exception as e:

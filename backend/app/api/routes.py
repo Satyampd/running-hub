@@ -53,11 +53,9 @@ async def get_events(request: Request, db: Session = Depends(get_db)):
         today = date.today() # - timedelta(days=1)  # Get today's date minus one day
         verified_events = events = db.query(EventModel).all()
         # verified_events = db.query(EventModel).filter(EventModel.is_verified == True).all()
-
         # filter events in Python by parsing string dates
         filtered_events = []
         for event in verified_events:
-            # parse event.date string e.g. '9 Nov 2025'
             event_date = datetime.strptime(event.date, "%d %b %Y").date()
             validated_event = ShowEvent.model_validate(event)
 

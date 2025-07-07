@@ -26,7 +26,7 @@ ALLOWED_ORIGINS = [
 
 # APScheduler setup
 scheduler = AsyncIOScheduler()
-EVENTS_URL = "https://running-events-hub-api.onrender.com/api/s"
+EVENTS_URL = "https://running-events-hub-api.onrender.com/api/"
 
 async def scheduled_ping_job():
     logger.info(f"Pinging URL: {EVENTS_URL}")

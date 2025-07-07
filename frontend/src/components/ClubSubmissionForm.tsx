@@ -1,4 +1,3 @@
-
 // src/components/ClubSubmissionForm.tsx
 import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
@@ -6,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import '../styles/custom.css'; // Ensure custom styles are imported
 import { MAJOR_CITIES } from '../config/constants'; // Corrected import path
+import ReCAPTCHA from 'react-google-recaptcha';
 
 
 // --- CONSTANTS FOR CITIES, DAYS, AND TIMES ---
@@ -92,6 +92,9 @@ export default function ClubSubmissionForm({ onSuccess }: ClubSubmissionFormProp
   const [uploadingImages, setUploadingImages] = useState(false);
   // --- END IMAGE UPLOAD STATE ---
 
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const googleRecaptchaKey = import.meta.env.VITE_GOOGLE_RECAPTCHA_SITE_KEY;
+
   const createClubMutation = useMutation({
     mutationFn: async (clubData: ClubFormData) => {
       try {
@@ -142,7 +145,7 @@ export default function ClubSubmissionForm({ onSuccess }: ClubSubmissionFormProp
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setSuccess(false); // Reset success state on new submission attempt
+    setSuccess(false);
     const validationErrors: string[] = [];
 
     // --- Required Field Validations ---
@@ -193,6 +196,10 @@ export default function ClubSubmissionForm({ onSuccess }: ClubSubmissionFormProp
         validationErrors.push('Club name is required to upload images.');
     }
 
+    if (!recaptchaToken) {
+      setError('Please complete the reCAPTCHA.');
+      return;
+    }
 
     if (validationErrors.length > 0) {
       setError(validationErrors.join('\n'));
@@ -253,7 +260,8 @@ export default function ClubSubmissionForm({ onSuccess }: ClubSubmissionFormProp
 
     createClubMutation.mutate({
       ...formData,
-      photos: uploadedImageUrls, // Use the URLs from the successful uploads
+      photos: uploadedImageUrls,
+      ...(recaptchaToken ? { recaptcha_token: recaptchaToken } : {}),
     });
   };
 
@@ -679,6 +687,12 @@ export default function ClubSubmissionForm({ onSuccess }: ClubSubmissionFormProp
             <div>{error}</div>
           </div>
         )}
+
+        <ReCAPTCHA
+          sitekey= {googleRecaptchaKey}
+          onChange={token => setRecaptchaToken(token)}
+          className="my-4"
+        />
 
         <button
           type="submit"

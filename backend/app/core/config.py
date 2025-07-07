@@ -12,17 +12,18 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = "neondb"
     POSTGRES_PORT: str = "5432"
 
+    RECAPTCHA_SECRET: str = "6Lf6kHorAAAAADkNfV2uPCmzk1a79q2AY7tlU64Y"
+
     DATABASE_URL: Optional[str] = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
 
     # Scraping API Key and Secret Message
     SCRAPING_API_KEY: str = "your_secret_api_key_here"  
     SCRAPING_SECRET_MESSAGE: str = "your_secret_message_for_scraping_here" 
-
-    API_KEY: str = "supersecretapikey"  # Change this to something strong!
     
     SUPABASE_PROJECT_ID : str = "gvheihkjpuewfbabljqf"
     SUPABASE_ANON_KEY: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2aGVpaGtqcHVld2ZiYWJsanFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAzOTg5NzIsImV4cCI6MjA2NTk3NDk3Mn0.ocS-JT3hdU5-tOoDvvPw9-0l6dRYty2EWwKq0RyBtgA" 
+   
     @property
     def get_database_url(self) -> str:
         if self.DATABASE_URL:

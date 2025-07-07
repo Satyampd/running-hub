@@ -45,3 +45,6 @@ class ShowEvent(BaseModel):
     class Config:
         from_attributes = True 
         orm_mode = True  # Enable ORM mode for compatibility with SQLAlchemy models
+
+class EventSubmission(EventBase):
+    recaptcha_token: str

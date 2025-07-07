@@ -5,6 +5,7 @@ import api from '../services/api';
 import { formatDate } from '../utils/dateUtils';
 import '../styles/custom.css'; // Ensure custom styles are imported
 import { MAJOR_CITIES, PREDEFINED_EVENT_CATEGORIES } from '../config/constants'; // Corrected import path
+import ReCAPTCHA from 'react-google-recaptcha';
 
 interface EventSubmissionFormProps {
   onSuccess?: () => void;
@@ -45,6 +46,8 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [imageUploadProgress, setImageUploadProgress] = useState<number[]>([]);
   const [uploadingImages, setUploadingImages] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const googleRecaptchaKey = import.meta.env.VITE_GOOGLE_RECAPTCHA_SITE_KEY ;
 
   const createEventMutation = useMutation({
     mutationFn: async (eventData: EventFormData) => {
@@ -121,6 +124,11 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
       validationErrors.push("If categories are added, at least one must be valid (not empty).");
     }
 
+    if (!recaptchaToken) {
+      setError('Please complete the reCAPTCHA.');
+      return;
+    }
+
     if (validationErrors.length > 0) {
       setError(validationErrors.join('\n'));
       return;
@@ -181,6 +189,7 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
         ? formatDate(formData.registration_closes)
         : '',
       categories: validCategories,
+      ...(recaptchaToken ? { recaptcha_token: recaptchaToken } : {}),
     });
   };
 
@@ -415,6 +424,12 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
             className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-200/50 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 focus:outline-none transition-all shadow-inner"
           />
         </div>
+
+        <ReCAPTCHA
+          sitekey = {googleRecaptchaKey}
+          onChange={token => setRecaptchaToken(token)}
+          className="my-4"
+        />
 
         {error && <p className="text-red-600 font-medium text-sm whitespace-pre-line">{error}</p>}
         {success && <p className="text-green-600 font-medium text-sm">Event submitted successfully!</p>}

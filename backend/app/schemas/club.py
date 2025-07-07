@@ -47,4 +47,7 @@ class Club(ClubBase):
     is_verified: Optional[bool] = False
 
     class Config:
-        from_attributes = True 
+        from_attributes = True
+
+class ClubSubmission(ClubBase):
+    recaptcha_token: str 

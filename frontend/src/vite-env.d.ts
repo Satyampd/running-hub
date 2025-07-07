@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_API_URL: string
+  readonly VITE_GOOGLE_RECAPTCHA_SITE_KEY: string 
   // more env variables...
 }
 

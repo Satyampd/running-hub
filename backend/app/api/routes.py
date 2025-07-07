@@ -1,22 +1,24 @@
 from datetime import date, datetime, timedelta
-from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi import APIRouter, HTTPException, Depends, Request, Body
 from typing import List
 from sqlalchemy.orm import Session
-from app.schemas.event import Event, EventCreate, ShowEvent
+from app.schemas.event import Event, EventCreate, ShowEvent, EventSubmission
 from app.models.event import Event as EventModel
-from app.schemas.club import Club, ClubCreate
+from app.schemas.club import Club, ClubCreate, ClubSubmission
 from app.models.club import Club as ClubModel
 from app.db.base import SessionLocal
 from app.api.scraping import router as scraping_router
 from app.core.logging_config import get_logger
-from app.core.deps import verify_api_key
+from app.core.config import Settings
 from app.api.routers.image_upload import router as image_upload_router
-
+import requests
 import uuid
+
+
+settings = Settings()
 
 logger = get_logger(__name__)
 
-router = APIRouter(dependencies=[Depends(verify_api_key)])
 router = APIRouter()
 
 # Include the scraping router
@@ -37,6 +39,12 @@ def get_db():
         # logger.debug("Closing database session.")
         db.close()
 
+def verify_recaptcha(token: str) -> bool:
+    url = "https://www.google.com/recaptcha/api/siteverify"
+    data = {"secret": settings.RECAPTCHA_SECRET, "response": token}
+    response = requests.post(url, data=data)
+    result = response.json()
+    return result.get("success", False)
 
 @router.get("/events", response_model=List[ShowEvent])
 async def get_events(request: Request, db: Session = Depends(get_db)):
@@ -62,15 +70,15 @@ async def get_events(request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Error fetching events")
 
 @router.post("/events", response_model=Event)
-async def create_event(event: EventCreate, request: Request, db: Session = Depends(get_db)):
-    logger.info(f"POST /events request from {request.client.host} with payload: {event}")
-    """Create a new event submitted by a user"""
+async def create_event(submission: EventSubmission, request: Request, db: Session = Depends(get_db)):
+    logger.info(f"POST /events request from {request.client.host} with payload: {submission}")
+    if not verify_recaptcha(submission.recaptcha_token):
+        raise HTTPException(status_code=400, detail="Invalid reCAPTCHA. Please try again.")
     try:
-        # Set is_verified to False for user-submitted events
-        event_data = event.model_dump()
+        event_data = submission.model_dump()
+        event_data.pop("recaptcha_token", None)
         event_data["is_verified"] = False
         event_data["source"] = "User Submitted"
-        
         db_event = EventModel(**event_data)
         db.add(db_event)
         db.commit()
@@ -122,11 +130,13 @@ async def get_clubs(request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/clubs", response_model=Club)
-async def create_club(club: ClubCreate, request: Request, db: Session = Depends(get_db)):
-    logger.info(f"POST /clubs request from {request.client.host} with payload: {club}")
-    """Create a new club"""
+async def create_club(submission: ClubSubmission, request: Request, db: Session = Depends(get_db)):
+    logger.info(f"POST /clubs request from {request.client.host} with payload: {submission}")
+    if not verify_recaptcha(submission.recaptcha_token):
+        raise HTTPException(status_code=400, detail="Invalid reCAPTCHA. Please try again.")
     try:
-        club_data = club.model_dump()
+        club_data = submission.model_dump()
+        club_data.pop("recaptcha_token", None)
         club_data["id"] = str(uuid.uuid4())
         db_club = ClubModel(**club_data)
         db.add(db_club)

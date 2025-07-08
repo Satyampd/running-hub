@@ -19,7 +19,7 @@ export const cityImages = {
   "Mumbai": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Mumbai-1.jpeg",
   "Delhi": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Delhi.jpeg",
   "Gurugram": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Gurugram.jpeg",
-  "Noida": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Noida.jpeg",
+  "Noida": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Noida.png",
   "Bangalore": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Bangalore.jpeg",
   "Chennai": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Chennai.jpeg",
   "Kolkata": "https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Kolkata.jpeg",

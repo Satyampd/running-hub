@@ -38,11 +38,11 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent dark:from-black/80" />
         {/* Gallery indicator if multiple images */}
-        {event.photos && event.photos.length > 1 && (
+        {/* {event.photos && event.photos.length > 1 && (
           <div className="absolute top-2 right-2 bg-white/80 dark:bg-gray-900/80 rounded-full px-3 py-1 text-xs text-gray-800 dark:text-gray-200 shadow">
             +{event.photos.length}
           </div>
-        )}
+        )} */}
         {/* Date & Location */}
         <div className="absolute bottom-0 left-0 right-0 p-4">
           <div className="flex items-center space-x-2 text-white mb-2">
@@ -79,7 +79,8 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
 
         {/* Source and Price */}
         <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-3">
-          <span>Source: {event.source}</span>
+          {/* <span>Source: {event.source}</span> */}
+          <span>Source: Crowd Sourced</span>
           <span className="font-medium text-gray-800 dark:text-gray-300">
             {formatPrice(event.price)}
           </span>

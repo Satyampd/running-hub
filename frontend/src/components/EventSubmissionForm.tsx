@@ -883,7 +883,7 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
               : 'bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800'
           }`}
         >
-          {uploadingImages || createEventMutation.isPending ? 'Submitting...' : 'Submit Event'}
+          {uploadingImages || createEventMutation.isPending ? 'Uploading images...' : 'Submitting Event'}
         </button>
       </form>
     </div>

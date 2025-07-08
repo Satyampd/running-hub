@@ -1,7 +1,6 @@
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
 from datetime import datetime
-from uuid import UUID
 
 class EventBase(BaseModel):
     title: str
@@ -22,7 +21,7 @@ class EventCreate(EventBase):
     pass
 
 class Event(EventBase):
-    id: UUID
+    id: str
     created_at: datetime
     updated_at: datetime
 
@@ -30,7 +29,7 @@ class Event(EventBase):
         from_attributes = True 
 
 class ShowEvent(BaseModel):
-    id: UUID
+    id: str
     title: str
     date: str
     location: str

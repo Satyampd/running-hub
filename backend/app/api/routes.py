@@ -13,6 +13,7 @@ from app.core.config import Settings
 from app.api.routers.image_upload import router as image_upload_router
 import requests
 import uuid
+from slugify import slugify
 
 
 settings = Settings()
@@ -46,6 +47,15 @@ def verify_recaptcha(token: str) -> bool:
     result = response.json()
     return result.get("success", False)
 
+def generate_unique_id(db, model, name_field, name_value):
+    base_id = slugify(name_value)
+    unique_id = base_id
+    counter = 1
+    while db.query(model).filter_by(id=unique_id).first():
+        unique_id = f"{base_id}-{counter}"
+        counter += 1
+    return unique_id
+
 @router.get("/events", response_model=List[ShowEvent])
 async def get_events(request: Request, db: Session = Depends(get_db)):
     logger.info(f"GET /events request from {request.client.host}")
@@ -77,6 +87,7 @@ async def create_event(submission: EventSubmission, request: Request, db: Sessio
         event_data.pop("recaptcha_token", None)
         event_data["is_verified"] = False
         event_data["source"] = "User Submitted"
+        event_data["id"] = generate_unique_id(db, EventModel, "title", event_data["title"])
         db_event = EventModel(**event_data)
         db.add(db_event)
         db.commit()
@@ -91,7 +102,6 @@ async def create_event(submission: EventSubmission, request: Request, db: Sessio
 @router.get("/events/{event_id}", response_model=Event)
 async def get_event(event_id: str, request: Request, db: Session = Depends(get_db)):
     logger.info(f"GET /events/{event_id} request from {request.client.host}")
-    """Get a specific event by ID from database"""
     try:
         event = db.query(EventModel).filter(EventModel.id == event_id).first()
         if not event:
@@ -135,7 +145,7 @@ async def create_club(submission: ClubSubmission, request: Request, db: Session 
     try:
         club_data = submission.model_dump()
         club_data.pop("recaptcha_token", None)
-        club_data["id"] = str(uuid.uuid4())
+        club_data["id"] = generate_unique_id(db, ClubModel, "name", club_data["name"])
         db_club = ClubModel(**club_data)
         db.add(db_club)
         db.commit()
@@ -150,8 +160,8 @@ async def create_club(submission: ClubSubmission, request: Request, db: Session 
 @router.get("/clubs/{club_id}", response_model=Club)
 async def get_club(club_id: str, request: Request, db: Session = Depends(get_db)):
     logger.info(f"GET /clubs/{club_id} request from {request.client.host}")
-    """Get a specific club by ID from database"""
     try:
+        print(f"Getting club with ID: {club_id}")
         club = db.query(ClubModel).filter(ClubModel.id == club_id).first()
         if not club:
             logger.warning(f"Club with ID {club_id} not found.")

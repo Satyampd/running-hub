@@ -5,7 +5,7 @@ from app.db.base import Base
 class Event(Base):
     __tablename__ = "events"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(String, primary_key=True)
     title = Column(String, nullable=False)
     date = Column(String, nullable=False)
     location = Column(String, nullable=False)

@@ -1,10 +1,10 @@
-
+// src/pages/EventDetailsPage.tsx
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
 import { getEventById } from '../services/api';
 import PageContainer from '../components/PageContainer';
 import { formatDate } from '../utils/dateUtils';
+import ImageGalleryModal from '../components/ImageGalleryModal'; 
 
 type Event = {
   id: string;
@@ -25,32 +25,6 @@ export default function EventDetailsPage() {
     queryKey: ['event', id],
     queryFn: () => getEventById(id!),
   });
-
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [touchStartX, setTouchStartX] = useState<number | null>(null);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.touches[0].clientX);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX !== null && selectedIndex !== null && event?.photos) {
-      const touchEndX = e.changedTouches[0].clientX;
-      const distance = touchStartX - touchEndX;
-      const threshold = 50;
-
-      if (distance > threshold && selectedIndex < event.photos.length - 1) {
-        const nextIndex = selectedIndex + 1;
-        setSelectedIndex(nextIndex);
-        setSelectedImage(event.photos[nextIndex]);
-      } else if (distance < -threshold && selectedIndex > 0) {
-        const prevIndex = selectedIndex - 1;
-        setSelectedIndex(prevIndex);
-        setSelectedImage(event.photos[prevIndex]);
-      }
-    }
-  };
 
   if (isLoading) {
     return (
@@ -124,53 +98,15 @@ export default function EventDetailsPage() {
                   <span className="font-medium">{event.source}</span>
                 </div>
               </div>
-              {/* Gallery of event images */}
+
+              {/* Gallery of event images - Now using ImageGalleryModal */}
               {event.photos && event.photos.length > 0 && (
-                <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {event.photos.map((photo, idx) => (
-                    <img
-                      key={idx}
-                      src={photo}
-                      alt={`${event.title} photo ${idx + 1}`}
-                      className="w-full h-64 object-cover rounded-xl shadow cursor-pointer"
-                      onClick={() => {
-                        setSelectedImage(photo);
-                        setSelectedIndex(idx);
-                      }}
-                    />
-                  ))}
+                <div className="mb-8"> {/* You might have a title here, keeping the div */}
+                    <ImageGalleryModal images={event.photos} altPrefix={`${event.title} photo`} />
                 </div>
               )}
 
-              {/* Image Modal */}
-              {selectedImage && (
-                <div
-                  className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-                  onClick={() => {
-                    setSelectedImage(null);
-                    setSelectedIndex(null);
-                  }}
-                >
-                  <div className="relative" onClick={(e) => e.stopPropagation()}>
-                    <img
-                      src={selectedImage}
-                      alt="Enlarged"
-                      className="max-w-[90vw] max-h-[90vh] rounded-lg"
-                      onTouchStart={handleTouchStart}
-                      onTouchEnd={handleTouchEnd}
-                    />
-                    <button
-                      onClick={() => {
-                        setSelectedImage(null);
-                        setSelectedIndex(null);
-                      }}
-                      className="absolute top-4 right-4 text-white text-3xl font-bold hover:text-gray-300"
-                    >
-                      &times;
-                    </button>
-                  </div>
-                </div>
-              )}
+              {/* The Image Modal JSX is now entirely gone from here */}
 
               {event.description && (
                 <div className="mb-8">

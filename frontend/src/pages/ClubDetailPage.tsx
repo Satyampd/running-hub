@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+
+// src/pages/ClubDetailsPage.tsx
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import api from '../services/api';
+import ImageGalleryModal from '../components/ImageGalleryModal'; 
 
 interface RunningClub {
   id: string;
@@ -30,9 +33,6 @@ interface RunningClub {
 
 const ClubDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const { data: club, isLoading, error } = useQuery<RunningClub>({
     queryKey: ['club', id],
@@ -42,39 +42,6 @@ const ClubDetailPage: React.FC = () => {
     },
   });
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX !== null) {
-      const touchEndX = e.changedTouches[0].clientX;
-      const distance = touchStartX - touchEndX;
-      const threshold = 50;
-
-      if (distance > threshold) {
-        showNextImage();
-      } else if (distance < -threshold) {
-        showPrevImage();
-      }
-    }
-  };
-
-  const showNextImage = () => {
-    if (selectedIndex !== null && club && selectedIndex < club.photos.length - 1) {
-      const nextIndex = selectedIndex + 1;
-      setSelectedImage(club.photos[nextIndex]);
-      setSelectedIndex(nextIndex);
-    }
-  };
-
-  const showPrevImage = () => {
-    if (selectedIndex !== null && club && selectedIndex > 0) {
-      const prevIndex = selectedIndex - 1;
-      setSelectedImage(club.photos[prevIndex]);
-      setSelectedIndex(prevIndex);
-    }
-  };
 
   if (isLoading) {
     return (
@@ -148,24 +115,11 @@ const ClubDetailPage: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-300 whitespace-pre-line">{club.description}</p>
             </div>
 
-            {/* Photos Gallery */}
+            {/* Photos Gallery - Now using ImageGalleryModal */}
             {club.photos.length > 0 && (
               <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Club Photos</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {club.photos.map((photo, index) => (
-                    <img
-                      key={index}
-                      src={photo}
-                      alt={`${club.name} photo ${index + 1}`}
-                      className="w-full h-48 object-cover rounded-lg cursor-pointer"
-                      onClick={() => {
-                        setSelectedImage(photo);
-                        setSelectedIndex(index);
-                      }}
-                    />
-                  ))}
-                </div>
+                <ImageGalleryModal images={club.photos} altPrefix={`${club.name} photo`} />
               </div>
             )}
 
@@ -319,36 +273,6 @@ const ClubDetailPage: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Image Modal with Swipe and Close Button */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-          onClick={() => {
-            setSelectedImage(null);
-            setSelectedIndex(null);
-          }}
-        >
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={selectedImage}
-              alt="Enlarged"
-              className="max-h-[90vh] max-w-[90vw] rounded-lg"
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-            />
-            <button
-              className="absolute top-4 right-4 text-white text-3xl font-bold hover:text-gray-300"
-              onClick={() => {
-                setSelectedImage(null);
-                setSelectedIndex(null);
-              }}
-            >
-              &times;
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

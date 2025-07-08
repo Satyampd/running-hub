@@ -800,7 +800,7 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
           />
           {selectedImages.length > 0 && (
             <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select a Hero Image:</p>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select a Cover Image:</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {selectedImages.map((file, idx) => (
                   <div key={idx} className="relative border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden shadow-sm">
@@ -818,7 +818,7 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
                           onChange={() => setHeroImageIndex(idx)}
                           className="form-radio h-4 w-4 text-primary-600 transition duration-150 ease-in-out"
                         />
-                        <span className="ml-2">Make Hero</span>
+                        <span className="ml-2">Make Cover</span>
                       </label>
                       <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                         <span>{file.name}</span>
@@ -835,8 +835,6 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
           )}
         </div>
         {/* --- End Image Selection and Hero Image Logic --- */}
-
-        {/* Removed redundant progress bar, as it's now inside the image preview block */}
 
         {/* Description */}
         <div>
@@ -873,7 +871,7 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
 
         {/* Error/Success */}
         {error && <p className="text-red-600 text-sm whitespace-pre-line">{error}</p>}
-        {success && <p className="text-green-600 text-sm">Event submitted successfully!</p>}
+        {success && <p className="text-green-600 text-sm">Event submitted successfully! Redirecting to Events page...</p>}
 
         {/* Submit */}
         <button

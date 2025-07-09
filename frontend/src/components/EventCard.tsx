@@ -82,7 +82,7 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
           {/* <span>Source: {event.source}</span> */}
           <span>Source: Crowd Sourced</span>
           <span className="font-medium text-gray-800 dark:text-gray-300">
-            {formatPrice(event.price)}
+           <span>Price: </span> {formatPrice(event.price)}
           </span>
         </div>
 

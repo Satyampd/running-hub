@@ -52,6 +52,15 @@
   }
 }
 
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .gradient-bg {
   background: linear-gradient(135deg, #150b30 0%, #2c1c50 40%, #482880 80%, #321b60 100%);
   background-size: 200% 200%;
@@ -470,4 +479,36 @@
   transform: scale(0.98) translateY(2px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   animation: none;
+}
+
+.marquee-container {
+  overflow: hidden; 
+}
+
+
+.marquee-track {
+  animation: scroll 30s linear infinite;
+  display: flex;
+  width: fit-content;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* City card background placeholders */
+.city-bg-placeholder-0 {
+  background: linear-gradient(45deg, #4F46E5, #7C3AED);
+}
+
+.city-bg-placeholder-1 {
+  background: linear-gradient(45deg, #0EA5E9, #2DD4BF);
+}
+
+.city-bg-placeholder-2 {
+  background: linear-gradient(45deg, #EC4899, #8B5CF6);
+}
+
+.city-bg-placeholder-3 {
+  background: linear-gradient(45deg, #F59E0B, #EF4444);
 } 

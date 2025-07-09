@@ -10,49 +10,85 @@ const DATE_FORMATS = [
   'MMMM dd, yyyy',       // March 15, 2024
 ]
 
-function parseDate(dateString: string): Date | null {
-  // Remove any date ranges and take the first date
-  const firstDate = dateString.split('-')[0].split('to')[0].trim()
-  
-  // First try direct Date parsing
-  const directDate = new Date(firstDate)
-  if (isValid(directDate)) {
-    return directDate
-  }
+function parseDate(dateStringInput: string): Date | null {
+  if (!dateStringInput) return null;
+  const dateString = dateStringInput.trim();
 
-  // Try each format
+  // Priority 1: Try parsing with date-fns using the common formats
   for (const dateFormat of DATE_FORMATS) {
     try {
-      const parsedDate = parse(firstDate, dateFormat, new Date())
-      if (isValid(parsedDate)) {
-        return parsedDate
+      const parsedWithFormat = parse(dateString, dateFormat, new Date());
+      if (isValid(parsedWithFormat)) {
+        return parsedWithFormat;
       }
     } catch {
-      continue
+      // Continue if this format fails
     }
   }
 
-  return null
+  // Priority 2: Try direct JS Date parsing on the original trimmed string
+  const directDate = new Date(dateString);
+  if (isValid(directDate)) {
+    // This handles cases like full ISO strings, or potentially just "YYYY" if no format matched.
+    // If 'yyyy-MM-dd' was the input, it should have been caught by Priority 1.
+    return directDate;
+  }
+
+  // Priority 3: Try to extract the first date if it's a range string like "Date1 to Date2" or "Date1 - Date2"
+  // This is a fallback if the original string itself wasn't parsable by the above methods.
+  let partToParse = dateString;
+  let modifiedForRange = false;
+
+  const toSplit = dateString.split(/\s+to\s+/i); // Case-insensitive " to "
+  if (toSplit.length > 1) {
+    partToParse = toSplit[0].trim();
+    modifiedForRange = true;
+  } else {
+    const hyphenSplit = dateString.split(/\s+-\s+/); // " - " (with spaces)
+    if (hyphenSplit.length > 1) {
+      // This is safer for "YYYY-MM-DD" as it won't match if spaces aren't around the hyphen.
+      partToParse = hyphenSplit[0].trim();
+      modifiedForRange = true;
+    }
+  }
+
+  if (modifiedForRange) {
+    // If we extracted a part because it looked like a range, try parsing that part.
+    // Attempt with DATE_FORMATS first for the extracted part.
+    for (const dateFormat of DATE_FORMATS) {
+      try {
+        const parsedPart = parse(partToParse, dateFormat, new Date());
+        if (isValid(parsedPart)) return parsedPart;
+      } catch {
+        // Continue
+      }
+    }
+    // Then try direct JS Date parsing for the extracted part.
+    const directDateFromPart = new Date(partToParse);
+    if (isValid(directDateFromPart)) return directDateFromPart;
+  }
+
+  return null; // All attempts failed
 }
 
 export function formatDate(dateString: string): string {
-  if (!dateString) return 'Date TBA'
-  
-  // Remove any date ranges and take the first date
-  const firstDate = dateString.split('-')[0].split('to')[0].trim()
-  
-  const parsedDate = parseDate(firstDate)
+  if (!dateString) return 'Date TBA';
+
+  const trimmedDateString = dateString.trim();
+  const parsedDate = parseDate(trimmedDateString); // Use the improved parseDate
+
   if (!parsedDate) {
-    // If we can't parse it, return the original string or TBA
-    return firstDate.includes('TBA') || firstDate.includes('TBD') 
+    // If we can't parse it, return the original trimmed string, or TBA if applicable
+    return trimmedDateString.toUpperCase().includes('TBA') || trimmedDateString.toUpperCase().includes('TBD')
       ? 'Date TBA'
-      : firstDate
+      : trimmedDateString;
   }
 
   try {
-    return format(parsedDate, 'dd MMM yyyy')
+    return format(parsedDate, 'dd MMM yyyy');
   } catch {
-    return 'Date TBA'
+    // This fallback should be rare if parsedDate is valid
+    return 'Date TBA';
   }
 }
 

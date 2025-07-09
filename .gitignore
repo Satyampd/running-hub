@@ -1,8 +1,8 @@
 # Python virtual environments
 
 venv/
-.env
-*.env
+# .env
+# *.env
 
 # Python cache
 __pycache__/
@@ -27,9 +27,9 @@ htmlcov/
 coverage.xml
 
 # Build artifacts
-dist/
-build/
-*.egg-info/
+# dist/
+# build/
+# *.egg-info/
 
 # Database files
 *.sqlite3
@@ -44,5 +44,5 @@ build/
 *.bak
 backend/.env
 *_events.json
-
-
+Temp Files/
+app.*

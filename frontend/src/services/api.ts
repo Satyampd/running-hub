@@ -10,6 +10,7 @@ export interface Event {
   price: string;
   url: string;
   source: string;
+  registration_closes: string;
 }
 
 // Determine the API base URL based on environment or hostname
@@ -30,6 +31,14 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 })
+
+// Add API key to all requests
+api.interceptors.request.use((config) => {
+  const apiKey = import.meta.env.VITE_API_KEY || 'supersecretapikey'; // fallback for dev
+  config.headers = config.headers || {};
+  config.headers['X-API-KEY'] = apiKey;
+  return config;
+});
 
 export const getEvents = async (): Promise<Event[]> => {
   const response = await api.get('/events')

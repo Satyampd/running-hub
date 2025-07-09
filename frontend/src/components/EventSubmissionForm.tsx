@@ -329,13 +329,13 @@ export default function EventSubmissionForm({ onSuccess }: EventSubmissionFormPr
 
         {/* Price */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Price <span className="text-red-500">*</span></label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Starting Price <span className="text-red-500">*</span></label>
           <input
             type="text"
             value={formData.price}
             onChange={(e) => setFormData({ ...formData, price: e.target.value })}
             className="w-full px-4 py-3 rounded-lg border bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-primary-500 focus:border-primary-500"
-            placeholder="e.g., Free, ₹500"
+            placeholder="e.g., Free, 500"
           />
         </div>
 

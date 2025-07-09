@@ -11,7 +11,7 @@ import { cityImages, PREDEFINED_EVENT_CATEGORIES, MAJOR_CITIES } from '../config
 import EventCard from '../components/EventCard';
 import ClubCard from '../components/ClubCard'; 
 import api from '../services/api'; 
-// import { RunIcon } from '../components/Icons'; 
+import { CalendarIcon, UsersIcon } from '../components/Icons';
 
 interface AnimatedElementProps {
   children: React.ReactNode;
@@ -133,6 +133,48 @@ export default function HomePage() {
   return (
     <PageContainer>
       <div className="relative min-h-screen flex flex-col pt-16">
+
+          <section className="relative min-h-[30vh] flex items-center justify-center text-center overflow-hidden">
+          {/* Background image takes full screen within this section */}
+          <div className="absolute inset-0 z-0">
+            
+          {/* <img src="https://bitsdroid.com/wp-content/uploads/2025/06/RunnersHigh-Kolkata.jpeg" alt="Runzaar - Running Events In India"
+              className="w-full h-full object-cover object-center opacity-20 dark:opacity-10"
+            /> */}
+            {/* Added a subtle gradient overlay to ensure text readability */}
+            {/* <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent"></div> */}
+          </div>
+
+          {/* Hero Content - Centered */}
+          <div className="relative z-10 pt-24 pb-16 px-4 sm:px-6 max-w-7xl mx-auto"> {/* Added padding-top to push content below assumed fixed navbar */}
+            <FadeInWhenVisible delay={0}>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold text-gray-900 dark:text-white leading-tight mb-4 tracking-tight animate-fade-in-up">
+                Your Next Run Starts <span className="text-gradient">Here</span>
+              </h1>
+            </FadeInWhenVisible>
+            <FadeInWhenVisible delay={200}>
+              <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8 animate-fade-in-up-delay">
+                Discover local running events, join vibrant running clubs, and connect with the running community.
+              </p>
+            </FadeInWhenVisible>
+            <FadeInWhenVisible delay={400}>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up-delay-more">
+                <Link
+                  to="/events"
+                  className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-primary-600 hover:bg-primary-700 transition-colors transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                >
+                  <CalendarIcon className="w-5 h-5 mr-2" /> Find Events
+                </Link>
+                <Link
+                  to="/clubs"
+                  className="inline-flex items-center px-8 py-3 border border-primary-600 dark:border-primary-400 text-base font-medium rounded-full shadow-lg text-primary-600 dark:text-primary-400 bg-white dark:bg-gray-800 hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                >
+                  <UsersIcon className="w-5 h-5 mr-2" /> Discover Clubs
+                </Link>
+              </div>
+            </FadeInWhenVisible>
+          </div>
+        </section>
 
         {/* Events Section on Top */}
         <section className="py-8 sm:py-12 px-4 sm:px-6 relative overflow-hidden bg-gradient-to-b from-transparent to-gray-50/50 dark:to-gray-900/50">
@@ -294,49 +336,7 @@ export default function HomePage() {
               </div>
             </div>
           </FadeInWhenVisible>
-        </section>
-
-        {/* CTA Section - Made responsive */}
-        {/* <section className="py-8 sm:py-12 px-4 sm:px-6 relative mb-8 sm:mb-20">
-          <FadeInWhenVisible>
-            <div className="max-w-7xl mx-auto">
-              <div className="relative overflow-hidden rounded-3xl">
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: "url('https://bitsdroid.com/wp-content/uploads/2025/05/image-5.jpeg')" }}
-                >
-                </div>
-                <div className="relative p-6 sm:p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 bg-black/50">
-                  <div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-4 text-center md:text-left">
-                      Never Miss a Running Event
-                    </h2>
-                    <p className="text-white/90 max-w-xl mb-6 text-center md:text-left text-sm sm:text-base">
-                      Subscribe to our newsletter and stay updated with the latest running events, 
-                      training tips, and exclusive promotions.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto md:mx-0">
-                      <input 
-                        type="email"
-                        placeholder="Enter your email"
-                        className="flex-1 px-4 py-3 rounded-lg shadow-inner bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/60 focus:ring-2 focus:ring-white/50 focus:outline-none text-sm sm:text-base"
-                      />
-                      <button className="px-6 py-3 bg-white text-primary-600 rounded-lg font-medium hover:bg-white/90 transition-all shadow-lg hover:shadow-xl text-sm sm:text-base">
-                        Subscribe
-                      </button>
-                    </div>
-                  </div>
-                  <div className="w-full max-w-[200px] sm:max-w-xs md:max-w-sm hidden md:block">
-                    <div className="aspect-square rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center p-8 border border-white/30 animate-float-subtle">
-                      <RunIcon />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FadeInWhenVisible>
-        </section> */}
-        
+        </section>      
       </div>
     </PageContainer>
   );
